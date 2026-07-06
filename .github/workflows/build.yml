@@ -170,13 +170,13 @@ jobs:
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
 
-      # Windows 打包
+      # Windows 打包（NSIS 安装版 + zip 便携版）
       # --publish never：和 mac 同理，由 release job 单点上传。
-      - name: Build Windows installer
+      - name: Build Windows installer + portable zip
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          npx electron-builder --win nsis --publish never
+          npx electron-builder --win nsis zip --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
@@ -317,6 +317,7 @@ jobs:
           echo "$ASSETS" | grep -qE '^Couple-.*-macOS-x64\.dmg$' || MISSING+=("macOS-x64.dmg")
           echo "$ASSETS" | grep -qE '^Couple-.*-macOS-x64\.zip$' || MISSING+=("macOS-x64.zip")
           echo "$ASSETS" | grep -qE '^Couple-.*-Windows-x64\.exe$' || MISSING+=("Windows-x64.exe")
+          echo "$ASSETS" | grep -qE '^Couple-.*-Windows-x64\.zip$' || MISSING+=("Windows-x64.zip (portable)")
           echo "$ASSETS" | grep -qE '^Couple-.*-Linux-(x64|x86_64)\.AppImage$' || MISSING+=("Linux AppImage")
           echo "$ASSETS" | grep -qE '^Couple-.*-Linux-(x64|amd64)\.deb$' || MISSING+=("Linux deb")
 

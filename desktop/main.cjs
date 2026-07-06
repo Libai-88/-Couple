@@ -16,7 +16,7 @@ const { spawn, execFile } = require("child_process");
 const fs = require("fs");
 const { pathToFileURL } = require("url");
 const { PNG } = require("pngjs");
-const { initAutoUpdater, checkForUpdatesAuto, setMainWindow: setUpdaterMainWindow, setUpdateChannel, installDownloadedUpdate } = require("./auto-updater.cjs");
+const { initAutoUpdater, checkForUpdatesAuto, setMainWindow: setUpdaterMainWindow, setUpdateChannel, installDownloadedUpdate, isPortableMode, checkPortableUpdate, openPortableUpdateFolder } = require("./auto-updater.cjs");
 const {
   getAutoLaunchStatus,
   setAutoLaunchEnabled,
@@ -1832,6 +1832,11 @@ function createMainWindow() {
       hanakoHome,
     });
     _autoUpdaterInitialized = true;
+
+    // 便携版：electron-updater 不可用（无 NSIS 安装），走 GitHub Releases API 回退
+    if (isPortableMode()) {
+      checkPortableUpdate().catch(() => {});
+    }
   } else {
     setUpdaterMainWindow(mainWindow);
   }
@@ -3923,6 +3928,16 @@ wrapIpcHandler("check-update", () => {
     return { version: s.version, downloadUrl: s.downloadUrl || s.releaseUrl };
   }
   return null;
+});
+// 便携版更新：检查 GitHub Releases 并下载 zip
+wrapIpcHandler("check-portable-update", async () => {
+  await checkPortableUpdate();
+  return getUpdateState();
+});
+// 便携版更新：打开已下载 zip 所在文件夹，让用户手动替换
+wrapIpcHandler("open-portable-update-folder", () => {
+  openPortableUpdateFolder();
+  return true;
 });
 wrapIpcHandler("get-auto-launch-status", () => getAutoLaunchStatus({ app }));
 wrapIpcHandler("set-auto-launch-enabled", (_event, enabled) => setAutoLaunchEnabled({ app, enabled: enabled === true }));

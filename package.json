@@ -46,7 +46,8 @@
     "pack": "npm run build:computer-use-helper && npm run build:client && npm run build:server && electron-builder --dir",
     "install:local": "npm run pack && rm -rf /Applications/Couple.app && cp -R dist/mac-arm64/Couple.app /Applications/ && printf 'provider: github\\nowner: Libai-88\\nrepo: couple\\n' > /Applications/Couple.app/Contents/Resources/app-update.yml && node scripts/sign-local.cjs",
     "dist": "npm run build:computer-use-helper && npm run build:client && npm run build:server && electron-builder --mac dmg",
-    "dist:win": "npm run build:computer-use-helper && npm run build:windows-sandbox-helper && npm run generate:windows-icon && npm run build:client && npm run build:server && electron-builder --win nsis",
+    "dist:win": "npm run build:computer-use-helper && npm run build:windows-sandbox-helper && npm run generate:windows-icon && npm run build:client && npm run build:server && electron-builder --win nsis zip",
+    "dist:win:portable": "npm run build:computer-use-helper && npm run build:windows-sandbox-helper && npm run generate:windows-icon && npm run build:client && npm run build:server && electron-builder --win zip",
     "dist:linux": "npm run build:client && npm run build:server && electron-builder --linux AppImage deb",
     "test": "vitest run --exclude '**/.claude/**' --exclude '**/.cache/**' --exclude '**/dist/**' --exclude '**/dist-server/**' --exclude '**/dist-computer-use/**' --exclude '**/dist-sandbox/**'",
     "build:server": "node scripts/build-server.mjs",
@@ -205,7 +206,10 @@
       }
     ],
     "win": {
-      "target": "nsis",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "zip", "arch": ["x64"] }
+      ],
       "icon": "desktop/src/icon.ico",
       "executableName": "Couple",
       "artifactName": "${productName}-${version}-Windows-${arch}.${ext}",

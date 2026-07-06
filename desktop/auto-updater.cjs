@@ -6,10 +6,11 @@
  * graceful shutdown，避免“重启更新”点击后长时间无反馈。
  * 频道：Stable（allowPrerelease=false）/ Preview（allowPrerelease=true）。
  */
-const { ipcMain, app, BrowserWindow } = require("electron");
+const { ipcMain, app, BrowserWindow, shell } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
 const fs = require("fs");
+const os = require("os");
 
 const CHECK_INTERVAL = 4 * 60 * 60 * 1000; // 4 小时
 const DIGEST_ASSET_NAME = "release-digest.v1.json";
@@ -665,6 +666,116 @@ function setMainWindow(win) {
   _mainWindow = win;
 }
 
+// ── 便携版检测与 GitHub Releases API 回退更新 ──
+
+/**
+ * 判断是否运行在便携模式（从 zip 解压直接运行，非 NSIS 安装）。
+ * 便携版特征：exe 所在目录包含 resources/app.asar，且不在 Program Files / AppData 标准安装路径下。
+ */
+function isPortableMode() {
+  if (process.platform !== "win32") return false;
+  const exeDir = path.dirname(app.getPath("exe"));
+  const exeDirLower = exeDir.toLowerCase();
+  // 标准安装路径特征：包含 "program files" 或用户 AppData 下的固定安装目录
+  const isStandardInstall =
+    exeDirLower.includes("program files") ||
+    exeDirLower.includes(path.join(os.homedir(), "appdata").toLowerCase());
+  // 便携版特征：exe 旁边有 resources/app.asar
+  const hasAppAsar = fs.existsSync(path.join(exeDir, "resources", "app.asar"));
+  return hasAppAsar && !isStandardInstall;
+}
+
+/**
+ * 便携版自动更新：通过 GitHub Releases API 检查最新版本，
+ * 下载 zip 到用户 Downloads 目录，提示用户手动替换。
+ * 参考 Goose/Magent 的 githubUpdater.ts 实现。
+ */
+async function checkPortableUpdate() {
+  if (!app.isPackaged) return;
+  if (!isPortableMode()) return;
+
+  const owner = DEFAULT_GITHUB_OWNER;
+  const repo = DEFAULT_GITHUB_REPO;
+  const currentVersion = app.getVersion();
+
+  try {
+    logUpdate(`portable update check: checking GitHub Releases for ${owner}/${repo}`);
+    const response = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/releases/latest`,
+      { headers: { Accept: "application/vnd.github.v3+json", "User-Agent": "Couple/1.0" } }
+    );
+    if (!response.ok) {
+      logUpdate(`portable update check failed: GitHub API returned ${response.status}`);
+      return;
+    }
+    const release = await response.json();
+    const latestVersion = String(release.tag_name || "").replace(/^v/, "");
+    if (!latestVersion || latestVersion === currentVersion) {
+      setState({ status: "latest" });
+      return;
+    }
+
+    // 找到 Windows zip 资产
+    const zipAsset = (release.assets || []).find(a =>
+      a.name && a.name.includes("Windows") && a.name.endsWith(".zip")
+    );
+    if (!zipAsset) {
+      logUpdate(`portable update: no Windows zip asset found in release ${release.tag_name}`);
+      return;
+    }
+
+    logUpdate(`portable update available: ${currentVersion} → ${latestVersion}, downloading ${zipAsset.name}`);
+    setState({
+      status: "available",
+      version: latestVersion,
+      releaseNotes: typeof release.body === "string" ? release.body : null,
+      releaseUrl: release.html_url || null,
+      downloadUrl: zipAsset.browser_download_url,
+    });
+
+    // 下载 zip 到 Downloads 目录
+    const downloadsDir = path.join(os.homedir(), "Downloads");
+    const zipPath = path.join(downloadsDir, zipAsset.name);
+
+    const downloadResponse = await fetch(zipAsset.browser_download_url);
+    if (!downloadResponse.ok) {
+      logUpdate(`portable update download failed: ${downloadResponse.status}`);
+      setState({ status: "error", error: `Download failed: ${downloadResponse.status}` });
+      return;
+    }
+
+    const buffer = Buffer.from(await downloadResponse.arrayBuffer());
+    fs.mkdirSync(downloadsDir, { recursive: true });
+    fs.writeFileSync(zipPath, buffer);
+    logUpdate(`portable update downloaded to ${zipPath}`);
+
+    setState({
+      status: "downloaded",
+      version: latestVersion,
+      downloadUrl: zipPath,
+    });
+
+    // 通知用户手动替换
+    sendToRenderer("portable-update-ready", {
+      version: latestVersion,
+      zipPath,
+      releaseUrl: release.html_url,
+      currentDir: path.dirname(app.getPath("exe")),
+    });
+  } catch (err) {
+    logUpdate(`portable update check error: ${err?.message || String(err)}`);
+  }
+}
+
+/**
+ * 便携版更新：打开 zip 所在目录，让用户手动替换。
+ */
+function openPortableUpdateFolder() {
+  if (_updateState.downloadUrl && fs.existsSync(_updateState.downloadUrl)) {
+    shell.showItemInFolder(_updateState.downloadUrl);
+  }
+}
+
 module.exports = {
   initAutoUpdater,
   checkForUpdatesAuto,
@@ -675,4 +786,7 @@ module.exports = {
   resolveUpdateFeedConfig,
   buildReleaseDigestUrl,
   normalizeReleaseDigest,
+  isPortableMode,
+  checkPortableUpdate,
+  openPortableUpdateFolder,
 };
