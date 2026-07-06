@@ -1,0 +1,280 @@
+import React from 'react';
+import { t } from '../helpers';
+import { PlatformSection } from './bridge/PlatformSection';
+import { WechatSection } from './bridge/WechatSection';
+import { useBridgeState } from './bridge/useBridgeState';
+import { BridgeAgentRow } from './bridge/BridgeAgentRow';
+import { BridgePermissionModeSelect, type BridgePermissionMode } from './bridge/BridgeWidgets';
+import {
+  BRIDGE_SETTINGS_PLATFORMS,
+  bridgePlatformLabel,
+  type BridgePlatform,
+} from '../../utils/bridge-platforms';
+import { SettingsSection } from '../components/SettingsSection';
+import { SettingsRow } from '../components/SettingsRow';
+import { Toggle } from '../widgets/Toggle';
+import { useSettingsStore } from '../store';
+import styles from '../Settings.module.css';
+
+export function BridgeTab() {
+  const b = useBridgeState();
+  const snapshotBridge = useSettingsStore(s => s.settingsSnapshot.data?.preferences?.bridge);
+  // 注意：不能用 `|| {}` 兜底——空对象会让 Toggle 的 `!!status?.enabled` 显示成"假关"。
+  // 传 undefined 让 Toggle 走加载态。
+  const tgInfo = b.status?.telegram;
+  const fsInfo = b.status?.feishu;
+  const dtInfo = b.status?.dingtalk;
+  const qqInfo = b.status?.qq;
+  const wxInfo = b.status?.wechat;
+  const permissionMode = (b.status?.permissionMode || snapshotBridge?.permissionMode) as BridgePermissionMode | undefined;
+  const receiptEnabled = typeof b.status?.receiptEnabled === 'boolean'
+    ? b.status.receiptEnabled
+    : snapshotBridge?.receiptEnabled;
+  const richStreamingEnabled = typeof b.status?.richStreamingEnabled === 'boolean'
+    ? b.status.richStreamingEnabled
+    : snapshotBridge
+      ? snapshotBridge.richStreamingEnabled !== false
+      : undefined;
+  const feishuRegionOptions = [
+    { value: 'feishu_cn', label: t('settings.bridge.feishuRegionFeishuCn') },
+    { value: 'lark_global', label: t('settings.bridge.feishuRegionLarkGlobal') },
+  ];
+  const globalSettingsPending = !permissionMode || b.globalSettingsSaving;
+  const platformSections: Partial<Record<BridgePlatform, React.ReactNode>> = {
+    wechat: (
+      <WechatSection
+        status={wxInfo}
+        showToast={b.showToast}
+        onSaveConfig={(creds, enabled) => b.saveBridgeConfig('wechat', creds, enabled)}
+        onReload={b.loadStatus}
+        agentId={b.selectedAgentId}
+      />
+    ),
+    telegram: (
+      <PlatformSection
+        platform="telegram"
+        title={bridgePlatformLabel('telegram', t)}
+        status={tgInfo}
+        credentialFields={[
+          { key: 'token', label: t('settings.bridge.telegramToken'), type: 'secret', value: b.tgToken, onChange: b.setTgToken },
+        ]}
+        onToggle={async (on) => {
+          if (on && !b.tgToken.trim()) { b.showToast(t('settings.bridge.noToken'), 'error'); return; }
+          await b.saveBridgeConfig('telegram', b.tgToken.trim() ? { token: b.tgToken.trim() } : null, on);
+        }}
+        onTest={() => {
+          if (!b.tgToken.trim()) { b.showToast(t('settings.bridge.noToken'), 'error'); return; }
+          b.testPlatform('telegram', { token: b.tgToken.trim() });
+        }}
+        onCredentialBlur={async () => {
+          if (b.tgToken.trim()) await b.saveBridgeConfig('telegram', { token: b.tgToken.trim() }, undefined);
+        }}
+        testing={b.testingPlatform === 'telegram'}
+        hint={t('settings.bridge.telegramHint')}
+        ownerUsers={b.status?.knownUsers?.telegram || []}
+        currentOwner={b.status?.owner?.telegram}
+        onOwnerChange={(userId) => b.setOwner('telegram', userId)}
+      />
+    ),
+    feishu: (
+      <PlatformSection
+        platform="feishu"
+        title={bridgePlatformLabel('feishu', t)}
+        status={fsInfo}
+        credentialFields={[
+          {
+            key: 'region',
+            label: t('settings.bridge.feishuRegion'),
+            type: 'select',
+            value: b.fsRegion,
+            onChange: (value) => {
+              b.setFsRegion(value as typeof b.fsRegion);
+              if (b.fsAppId.trim() && b.fsAppSecret.trim()) {
+                b.saveBridgeConfig('feishu', { appId: b.fsAppId.trim(), appSecret: b.fsAppSecret.trim(), region: value }, undefined);
+              }
+            },
+            options: feishuRegionOptions,
+          },
+          { key: 'appId', label: t('settings.bridge.feishuAppId'), type: 'text', value: b.fsAppId, onChange: b.setFsAppId },
+          { key: 'appSecret', label: t('settings.bridge.feishuAppSecret'), type: 'secret', value: b.fsAppSecret, onChange: b.setFsAppSecret },
+        ]}
+        onToggle={async (on) => {
+          if (on && (!b.fsAppId.trim() || !b.fsAppSecret.trim())) { b.showToast(t('settings.bridge.noCredentials'), 'error'); return; }
+          await b.saveBridgeConfig('feishu', { appId: b.fsAppId.trim(), appSecret: b.fsAppSecret.trim(), region: b.fsRegion }, on);
+        }}
+        onTest={() => {
+          if (!b.fsAppId.trim() || !b.fsAppSecret.trim()) { b.showToast(t('settings.bridge.noCredentials'), 'error'); return; }
+          b.testPlatform('feishu', { appId: b.fsAppId.trim(), appSecret: b.fsAppSecret.trim(), region: b.fsRegion });
+        }}
+        onCredentialBlur={async () => {
+          if (b.fsAppId.trim() && b.fsAppSecret.trim())
+            await b.saveBridgeConfig('feishu', { appId: b.fsAppId.trim(), appSecret: b.fsAppSecret.trim(), region: b.fsRegion }, undefined);
+        }}
+        testing={b.testingPlatform === 'feishu'}
+        hint={t('settings.bridge.feishuHint')}
+        ownerUsers={b.status?.knownUsers?.feishu || []}
+        currentOwner={b.status?.owner?.feishu}
+        onOwnerChange={(userId) => b.setOwner('feishu', userId)}
+      />
+    ),
+    dingtalk: (
+      <PlatformSection
+        platform="dingtalk"
+        title={bridgePlatformLabel('dingtalk', t)}
+        status={dtInfo}
+        credentialFields={[
+          { key: 'clientId', label: t('settings.bridge.dingtalkClientId'), type: 'text', value: b.dtClientId, onChange: b.setDtClientId },
+          { key: 'clientSecret', label: t('settings.bridge.dingtalkClientSecret'), type: 'secret', value: b.dtClientSecret, onChange: b.setDtClientSecret },
+          { key: 'robotCode', label: t('settings.bridge.dingtalkRobotCode'), type: 'text', value: b.dtRobotCode, onChange: b.setDtRobotCode },
+          { key: 'restBaseUrl', label: t('settings.bridge.dingtalkRestBaseUrl'), type: 'text', value: b.dtRestBaseUrl, onChange: b.setDtRestBaseUrl },
+        ]}
+        onToggle={async (on) => {
+          if (on && (!b.dtClientId.trim() || !b.dtClientSecret.trim() || !b.dtRobotCode.trim() || !b.dtRestBaseUrl.trim())) { b.showToast(t('settings.bridge.noDingtalkCredentials'), 'error'); return; }
+          await b.saveBridgeConfig('dingtalk', {
+            clientId: b.dtClientId.trim(),
+            clientSecret: b.dtClientSecret.trim(),
+            robotCode: b.dtRobotCode.trim(),
+            restBaseUrl: b.dtRestBaseUrl.trim(),
+          }, on);
+        }}
+        onTest={() => {
+          if (!b.dtClientId.trim() || !b.dtClientSecret.trim() || !b.dtRobotCode.trim() || !b.dtRestBaseUrl.trim()) { b.showToast(t('settings.bridge.noDingtalkCredentials'), 'error'); return; }
+          b.testPlatform('dingtalk', {
+            clientId: b.dtClientId.trim(),
+            clientSecret: b.dtClientSecret.trim(),
+            robotCode: b.dtRobotCode.trim(),
+            restBaseUrl: b.dtRestBaseUrl.trim(),
+          });
+        }}
+        onCredentialBlur={async () => {
+          if (b.dtClientId.trim() && b.dtClientSecret.trim() && b.dtRobotCode.trim() && b.dtRestBaseUrl.trim())
+            await b.saveBridgeConfig('dingtalk', {
+              clientId: b.dtClientId.trim(),
+              clientSecret: b.dtClientSecret.trim(),
+              robotCode: b.dtRobotCode.trim(),
+              restBaseUrl: b.dtRestBaseUrl.trim(),
+            }, undefined);
+        }}
+        testing={b.testingPlatform === 'dingtalk'}
+        hint={t('settings.bridge.dingtalkHint')}
+        ownerUsers={b.status?.knownUsers?.dingtalk || []}
+        currentOwner={b.status?.owner?.dingtalk}
+        onOwnerChange={(userId) => b.setOwner('dingtalk', userId)}
+      />
+    ),
+    qq: (
+      <PlatformSection
+        platform="qq"
+        title={bridgePlatformLabel('qq', t)}
+        status={qqInfo}
+        credentialFields={[
+          { key: 'appID', label: t('settings.bridge.qqAppId'), type: 'text', value: b.qqAppId, onChange: b.setQqAppId },
+          { key: 'appSecret', label: t('settings.bridge.qqAppSecret'), type: 'secret', value: b.qqAppSecret, onChange: b.setQqAppSecret },
+        ]}
+        onToggle={async (on) => {
+          if (on && (!b.qqAppId.trim() || !b.qqAppSecret.trim())) { b.showToast(t('settings.bridge.noCredentials'), 'error'); return; }
+          await b.saveBridgeConfig('qq', { appID: b.qqAppId.trim(), appSecret: b.qqAppSecret.trim() }, on);
+        }}
+        onTest={() => {
+          if (!b.qqAppId.trim() || !b.qqAppSecret.trim()) { b.showToast(t('settings.bridge.noCredentials'), 'error'); return; }
+          b.testPlatform('qq', { appID: b.qqAppId.trim(), appSecret: b.qqAppSecret.trim() });
+        }}
+        onCredentialBlur={async () => {
+          if (b.qqAppId.trim() && b.qqAppSecret.trim())
+            await b.saveBridgeConfig('qq', { appID: b.qqAppId.trim(), appSecret: b.qqAppSecret.trim() }, undefined);
+        }}
+        testing={b.testingPlatform === 'qq'}
+        hint={t('settings.bridge.qqHint')}
+        ownerUsers={b.status?.knownUsers?.qq || []}
+        currentOwner={b.status?.owner?.qq}
+        onOwnerChange={(userId) => b.setOwner('qq', userId)}
+      />
+    ),
+  };
+
+  return (
+    <div className={`${styles['settings-tab-content']} ${styles['active']}`} data-tab="bridge">
+      <SettingsSection title={t('settings.bridge.globalSettings')}>
+        <SettingsRow
+          label={t('settings.bridge.permissionMode')}
+          hint={t('settings.bridge.permissionModeDesc')}
+          control={
+            <BridgePermissionModeSelect
+              value={permissionMode}
+              onChange={(mode) => b.saveGlobalSettings({ permissionMode: mode })}
+              disabled={globalSettingsPending}
+            />
+          }
+        />
+        <SettingsRow
+          label={t('settings.bridge.receiptEnabled')}
+          hint={t('settings.bridge.receiptEnabledDesc')}
+          control={
+            <Toggle
+              on={receiptEnabled}
+              ariaLabel={t('settings.bridge.receiptEnabled')}
+              onChange={(on) => b.saveGlobalSettings({ receiptEnabled: on })}
+              disabled={b.globalSettingsSaving}
+            />
+          }
+        />
+        <SettingsRow
+          label={t('settings.bridge.richStreamingEnabled')}
+          hint={t('settings.bridge.richStreamingEnabledDesc')}
+          control={
+            <Toggle
+              on={richStreamingEnabled}
+              ariaLabel={t('settings.bridge.richStreamingEnabled')}
+              onChange={(on) => b.saveGlobalSettings({ richStreamingEnabled: on })}
+              disabled={b.globalSettingsSaving}
+            />
+          }
+        />
+      </SettingsSection>
+
+      <SettingsSection title={t('settings.bridge.agentSettings')} variant="flush">
+        {/* BridgeAgentRow：tab 级 context，水平平铺头像+名字
+         * 未超宽时居中显示，超宽时横向滚动；selected 高亮对齐 AgentCardStack */}
+        <BridgeAgentRow
+          value={b.selectedAgentId}
+          onChange={b.setSelectedAgentId}
+        />
+      </SettingsSection>
+
+      {/* 对外意识：hint 在上、textarea 在下，直接作为 section body children（单 textarea 不套 row） */}
+      <SettingsSection title={t('settings.agent.publicIshiki')}>
+        <div style={{ padding: 'var(--space-8) var(--space-16)' }}>
+          <div style={{
+            fontSize: '0.7rem',
+            color: 'var(--text-muted)',
+            lineHeight: 1.5,
+            marginBottom: 'var(--space-8)',
+            whiteSpace: 'pre-line',
+          }}>
+            {t('settings.agent.publicIshikiHint')}
+          </div>
+          <textarea
+            className={styles['settings-textarea']}
+            rows={6}
+            spellCheck={false}
+            value={b.publicIshiki}
+            onChange={(e) => b.setPublicIshiki(e.target.value)}
+            onBlur={b.savePublicIshiki}
+          />
+        </div>
+      </SettingsSection>
+
+      <div className="bridge-help-link-row">
+        <span className="bridge-help-link" onClick={() => window.dispatchEvent(new Event('hana-show-bridge-tutorial'))}>
+          {t('settings.bridge.howTo')}
+        </span>
+      </div>
+
+      {BRIDGE_SETTINGS_PLATFORMS.map((descriptor) => (
+        <React.Fragment key={descriptor.id}>
+          {platformSections[descriptor.id]}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
