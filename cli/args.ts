@@ -1,13 +1,21 @@
 const COMMANDS = new Set(["serve", "status", "sessions", "continue", "chat", "help"]);
 
-export function parseCliArgs(argv = []) {
+export function parseCliArgs(argv: string[] = []) {
   const args = Array.from(argv);
   const command = args[0] && !args[0].startsWith("-") ? args.shift() : "help";
   if (!COMMANDS.has(command)) {
     return { command: "help", error: `unknown command: ${command}` };
   }
 
-  const result = {
+  const result: {
+    command: string;
+    plain: boolean;
+    url: string | null;
+    token: string | null;
+    session: string | null;
+    target: string | null;
+    passthrough: string[];
+  } = {
     command,
     plain: false,
     url: null,
@@ -40,7 +48,7 @@ export function parseCliArgs(argv = []) {
   return result;
 }
 
-function requireValue(args, index, flag) {
+function requireValue(args: string[], index: number, flag: string) {
   const value = args[index];
   if (!value || value.startsWith("--")) {
     throw new Error(`${flag} requires a value`);

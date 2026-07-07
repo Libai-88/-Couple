@@ -8,7 +8,7 @@ import path from "path";
 import os from "os";
 
 /** 解析真实路径（跟踪 symlink），失败返回 null */
-export function realPath(p) {
+export function realPath(p: string) {
   try { return fs.realpathSync(path.resolve(p)); }
   catch { return null; }
 }
@@ -22,7 +22,7 @@ const SENSITIVE_DIRS = [".ssh", ".gnupg", ".aws", ".config/gcloud", ".kube"];
  * @param {string} [hanakoHome] - hanakoHome 路径（也视为敏感）
  * @returns {boolean}
  */
-export function isSensitivePath(srcPath, hanakoHome) {
+export function isSensitivePath(srcPath: string, hanakoHome: string) {
   if (!path.isAbsolute(srcPath)) return true; // fail-closed on relative input
   const resolved = realPath(srcPath);
   if (!resolved) return true; // fail-closed

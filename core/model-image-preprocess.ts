@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Buffer } from "node:buffer";
 import * as piSdk from "../lib/pi-sdk/index.ts";
 

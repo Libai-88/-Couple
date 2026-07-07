@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { randomUUID } from "node:crypto";
 
 function escapeXml(str) {

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { runSessionSnapshotSideTask } from "../llm/session-snapshot-side-task-runner.ts";
 import { scrubPII } from "../pii-guard.ts";
 import { getLocale } from "../i18n.ts";

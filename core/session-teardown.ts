@@ -16,7 +16,7 @@ import { emitSessionShutdown } from "../lib/pi-sdk/index.ts";
  * @param {string} args.label
  * @param {(msg: string) => void} [args.warn]
  */
-export async function teardownSessionResources({ session, unsub, label, warn }) {
+export async function teardownSessionResources({ session, unsub, label, warn }: { session: { dispose?: () => void } | null; unsub?: (() => void) | null; label: string; warn?: (msg: string) => void }) {
   try {
     if (session) {
       await emitSessionShutdown(session);

@@ -11,7 +11,7 @@ export function detectPlatform() {
   return "unsupported";
 }
 
-export function checkAvailability(platform) {
+export function checkAvailability(platform: string) {
   try {
     if (platform === "seatbelt") {
       execFileSync("which", ["sandbox-exec"], { stdio: "ignore" });

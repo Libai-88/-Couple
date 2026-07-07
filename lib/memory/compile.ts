@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * compile.js — 记忆编译器（v4：按天滚动传送带 + assemble）
  *

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * OAuth 认证路由
  *

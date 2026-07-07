@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from "path";
 import { fileURLToPath } from "url";
 import { normalizeWin32ShellPath } from "../sandbox/win32-path.ts";

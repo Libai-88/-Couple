@@ -7,7 +7,7 @@
 import { Type } from "../pi-sdk/index.ts";
 import { t } from "../i18n.ts";
 
-export function createStopTaskTool(deps) {
+export function createStopTaskTool(deps: any) {
   return {
     name: "stop_task",
     label: "Stop background task",
@@ -15,7 +15,7 @@ export function createStopTaskTool(deps) {
     parameters: Type.Object({
       task_id: Type.String({ description: "The task ID to stop" }),
     }),
-    execute: async (_toolCallId, params) => {
+    execute: async (_toolCallId: string, params: { task_id?: string }) => {
       const taskId = params.task_id?.trim();
       if (!taskId) {
         return { content: [{ type: "text", text: "task_id is required" }] };

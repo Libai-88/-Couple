@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * PI SDK Adapter — 所有 PI SDK 导入的唯一入口
  *

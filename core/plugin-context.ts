@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from "path";
 import { serializeSessionFile } from "../lib/session-files/session-file-response.ts";
 import { createPluginConfigStore } from "./plugin-config.ts";

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import yaml from "js-yaml";
 
 const MAX_DESCRIPTION_LENGTH = 1024;

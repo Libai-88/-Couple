@@ -1,11 +1,11 @@
 import { COMPUTER_USE_ERRORS, computerUseError } from "./errors.ts";
 import { modelSupportsDirectImageInput } from "../../shared/model-capabilities.ts";
 
-export function modelSupportsComputerUse(model) {
+export function modelSupportsComputerUse(model: { id?: string; provider?: string; input?: string[] } | null | undefined) {
   return modelSupportsDirectImageInput(model);
 }
 
-export function assertComputerUseModelSupported(model) {
+export function assertComputerUseModelSupported(model: { id?: string; provider?: string; input?: string[] } | null | undefined) {
   if (modelSupportsComputerUse(model)) return;
   throw computerUseError(
     COMPUTER_USE_ERRORS.REQUIRES_VISION_MODEL,

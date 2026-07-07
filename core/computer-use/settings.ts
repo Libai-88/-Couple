@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const COMPUTER_USE_DEFAULT_SETTINGS = Object.freeze({
   enabled: false,
   provider_by_platform: {

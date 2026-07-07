@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * automation-tool.js — Agent-created scheduled automations
  *

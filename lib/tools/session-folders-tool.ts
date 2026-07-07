@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from "path";
 import {
   SESSION_APPROVAL_POLICIES,

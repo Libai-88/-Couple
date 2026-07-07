@@ -56,7 +56,7 @@ export function resolveComputerProviderId({
   const configured = settings.provider_by_platform?.[platform];
   if (configured && hasProvider(configured)) return configured;
 
-  const platformDefault = DEFAULT_COMPUTER_PROVIDER_BY_PLATFORM[platform];
+  const platformDefault = DEFAULT_COMPUTER_PROVIDER_BY_PLATFORM[platform as keyof typeof DEFAULT_COMPUTER_PROVIDER_BY_PLATFORM];
   if (platformDefault && hasProvider(platformDefault)) return platformDefault;
 
   return defaultProviderId;

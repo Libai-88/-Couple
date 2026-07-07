@@ -4,7 +4,7 @@ import path from "path";
 
 export const WIN32_SANDBOX_HELPER_NAME = "hana-win-sandbox.exe";
 
-export function resourceSiblingDir(name, { env = process.env, resourcesPath = (process as any).resourcesPath } = {}) {
+export function resourceSiblingDir(name: string, { env = process.env, resourcesPath = (process as any).resourcesPath } = {}) {
   const candidates = [];
   if (resourcesPath) candidates.push(path.join(resourcesPath, name));
   if (env.HANA_ROOT) candidates.push(path.resolve(env.HANA_ROOT, "..", name));

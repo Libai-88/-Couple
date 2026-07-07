@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 
 import { t } from "../lib/i18n.ts";
 

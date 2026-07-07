@@ -4,7 +4,7 @@ import { createHash } from "crypto";
 import { sessionFilesCacheDir } from "./session-file-registry.ts";
 import { serializeSessionFile } from "./session-file-response.ts";
 
-export function browserScreenshotExt(mimeType) {
+export function browserScreenshotExt(mimeType: string) {
   const lower = String(mimeType || "").toLowerCase();
   if (lower.includes("jpeg") || lower.includes("jpg")) return "jpg";
   if (lower.includes("webp")) return "webp";
@@ -18,7 +18,7 @@ export function browserScreenshotFilename({ base64, mimeType }: { base64?: any; 
   return `browser-screenshot-${hash}.${browserScreenshotExt(mimeType)}`;
 }
 
-export function browserScreenshotPath(hanakoHome, sessionPath, { base64, mimeType, sessionId = null }: { base64?: any; mimeType?: any; sessionId?: any } = {}) {
+export function browserScreenshotPath(hanakoHome: string, sessionPath: string, { base64, mimeType, sessionId = null }: { base64?: any; mimeType?: any; sessionId?: any } = {}) {
   return path.join(
     sessionFilesCacheDir(hanakoHome, { sessionId, sessionPath }),
     browserScreenshotFilename({ base64, mimeType }),
@@ -77,7 +77,7 @@ export function persistBrowserScreenshotFileSync({
   }));
 }
 
-export function browserScreenshotMediaItem(file) {
+export function browserScreenshotMediaItem(file: any) {
   if (!file?.fileId && !file?.id) return null;
   return {
     type: "session_file",

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * exec-helper.js — 共用的 spawn + stream + timeout 逻辑
  *

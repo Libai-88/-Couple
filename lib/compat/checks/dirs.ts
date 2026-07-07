@@ -19,7 +19,7 @@ const REQUIRED_AGENT_DIRS = [
   "avatars",
 ];
 
-export function checkDirs({ agentDir }) {
+export function checkDirs({ agentDir }: { agentDir: string }) {
   let created = 0;
 
   for (const dir of REQUIRED_AGENT_DIRS) {

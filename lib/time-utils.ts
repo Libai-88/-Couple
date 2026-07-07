@@ -30,7 +30,7 @@ export function getLogicalDay(now = new Date()) {
   return { logicalDate, rangeStart, rangeEnd };
 }
 
-export function getLogicalDayForDate(dateString) {
+export function getLogicalDayForDate(dateString: string) {
   const match = typeof dateString === "string" ? dateString.match(DATE_RE) : null;
   if (!match) return getLogicalDay();
 
@@ -59,7 +59,7 @@ export function getLogicalDayForDate(dateString) {
  * @param {number} days
  * @returns {string}
  */
-export function shiftLogicalDate(dateString, days) {
+export function shiftLogicalDate(dateString: string, days: number) {
   const match = typeof dateString === "string" ? dateString.match(DATE_RE) : null;
   if (!match) return dateString;
 

@@ -1,7 +1,7 @@
 const INTERNAL_NARRATION_TAGS = ["mood", "pulse", "reflect"];
 const INTERNAL_TAG_PATTERN = INTERNAL_NARRATION_TAGS.join("|");
 
-export function stripClosedInternalNarrationBlocks(value) {
+export function stripClosedInternalNarrationBlocks(value: string) {
   return String(value || "")
     .replace(new RegExp("```(?:" + INTERNAL_TAG_PATTERN + ")[\\s\\S]*?```\\s*", "gi"), "")
     .replace(new RegExp("<(" + INTERNAL_TAG_PATTERN + ")\\b[^>]*>[\\s\\S]*?<\\/\\1>\\s*", "gi"), "")
@@ -9,14 +9,14 @@ export function stripClosedInternalNarrationBlocks(value) {
     .trim();
 }
 
-export function stripInternalNarration(value) {
+export function stripInternalNarration(value: string) {
   return stripClosedInternalNarrationBlocks(value)
     .replace(new RegExp("<\\/?(?:" + INTERNAL_TAG_PATTERN + ")\\b[^>]*>\\s*", "gi"), "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 }
 
-export function normalizePlainDescription(value, maxLength = null) {
+export function normalizePlainDescription(value: string, maxLength: number | null = null) {
   const text = stripInternalNarration(value).replace(/\s+/g, " ").trim();
   if (!text) return "";
   if (maxLength == null) return text;

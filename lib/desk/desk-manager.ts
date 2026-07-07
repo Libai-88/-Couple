@@ -14,7 +14,7 @@ import path from "path";
  * 创建 Desk 管理器
  * @param {string} deskDir - desk 目录路径（{agentDir}/desk/）
  */
-export function createDeskManager(deskDir) {
+export function createDeskManager(deskDir: string) {
   const runsDir = path.join(deskDir, "cron-runs");
 
   return {

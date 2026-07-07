@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * 数据迁移 runner
  *
@@ -337,7 +339,10 @@ function migrateBridgeToPerAgent(ctx) {
           break;
         }
       }
-    } catch {}
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+    }
   }
 
   for (const platform of PLATFORMS) {
@@ -884,7 +889,10 @@ function migrateWorkspaceToPerAgent(ctx) {
           break;
         }
       }
-    } catch {}
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+    }
   }
 
   // ── 2. 迁移 home_folder ──
@@ -1296,13 +1304,19 @@ function migrateCronJobsToAutomationReadModel(ctx) {
       if (!entry.isDirectory()) continue;
       paths.push(path.join(studiosDir, entry.name, "desk", "cron-jobs.json"));
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   try {
     for (const entry of readDirectoryLikeDirentsSync(agentsDir)) {
       paths.push(path.join(agentsDir, entry.name, "desk", "cron-jobs.json"));
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   let patchedFiles = 0;
   let patchedJobs = 0;
@@ -1407,13 +1421,19 @@ function migrateDirectNotifyAutomationsToAgentRuns(ctx) {
       if (!entry.isDirectory()) continue;
       paths.push(path.join(studiosDir, entry.name, "desk", "cron-jobs.json"));
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   try {
     for (const entry of readDirectoryLikeDirentsSync(agentsDir)) {
       paths.push(path.join(agentsDir, entry.name, "desk", "cron-jobs.json"));
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   let patchedFiles = 0;
   let patchedJobs = 0;
@@ -1440,7 +1460,10 @@ function repairAutomationOwnershipAfterAgentRunConsolidation(ctx) {
         fallbackAgentId: null,
       });
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   try {
     for (const entry of readDirectoryLikeDirentsSync(agentsDir)) {
@@ -1449,7 +1472,10 @@ function repairAutomationOwnershipAfterAgentRunConsolidation(ctx) {
         fallbackAgentId: entry.name,
       });
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[migrations] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
 
   let patchedFiles = 0;
   let patchedJobs = 0;

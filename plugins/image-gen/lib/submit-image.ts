@@ -14,7 +14,7 @@ import {
 import { resolveMediaParameters } from "../../../core/media/media-parameters.ts";
 import { t } from "../../../lib/i18n.ts";
 
-function assertMediaRuntime(ctx) {
+function assertMediaRuntime(ctx: any) {
   const { registry, store, poller } = ctx?._mediaGen || {};
   if (!registry || !store || !poller) {
     throw new Error(t("plugin.imageGen.notInitialized"));

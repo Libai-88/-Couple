@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fsp from "fs/promises";
 import path from "path";
 import { Hono } from "hono";

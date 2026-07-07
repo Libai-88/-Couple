@@ -15,7 +15,7 @@ export class GuestHandler {
    * @param {object} opts
    * @param {import('./index.ts').Hub} opts.hub
    */
-  constructor({ hub }) {
+  constructor({ hub }: { hub: any }) {
     this._hub = hub;
   }
 
@@ -28,7 +28,7 @@ export class GuestHandler {
    * @returns {Promise<{text: string|null, toolMedia: any[], error: string|null, truncated: boolean}|null>}
    *   透传 executeExternalMessage 的结构化结果（null 仅在用户中止时）
    */
-  async handle(text, sessionKey, meta, opts: any = {}) {
+  async handle(text: string, sessionKey: string, meta: Record<string, unknown>, opts: any = {}) {
     const isZh = getLocale().startsWith("zh");
     const senderName = meta?.name || (isZh ? "访客" : "Guest");
     const isGroup = opts.isGroup || false;

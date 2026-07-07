@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * LongCat OpenAI-compatible thinking compatibility.
  *

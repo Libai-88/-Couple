@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 
-export function createUsageRoute(engine) {
+export function createUsageRoute(engine: any) {
   const route = new Hono();
 
   route.get("/usage/llm", (c) => {

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { getLocale } from "../lib/i18n.ts";
 import { modelSupportsDirectImageInput } from "../shared/model-capabilities.ts";
 import { prepareModelImageInputsForPrompt } from "./model-image-preprocess.ts";

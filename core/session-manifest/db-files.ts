@@ -7,7 +7,7 @@ export const SESSION_MANIFEST_DB_FILE_NAMES = [
   "session-manifest.db-shm",
 ];
 
-export function sanitizeSessionManifestFileSuffix(value) {
+export function sanitizeSessionManifestFileSuffix(value: unknown) {
   return String(value)
     .replace(/:/g, "-")
     .replace(/\./g, "-");

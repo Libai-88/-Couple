@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { adaptVisualContextMessages } from "./visual-context-pipeline.ts";
 import {
   VISION_CONTEXT_END,

@@ -34,14 +34,14 @@ const checks = [
  * @param {string} ctx.hanakoHome  ~/.hanako 根目录
  * @param {(msg: string) => void} [ctx.log]  日志函数
  */
-export async function runCompatChecks(ctx) {
+export async function runCompatChecks(ctx: { agentDir: string; hanakoHome: string; log?: (msg: string) => void }) {
   const log = ctx.log || (() => {});
   let passed = 0;
   let fixed = 0;
 
   for (const check of checks) {
     try {
-      const result = await check.run(ctx);
+      const result = await check.run({ ...ctx, log });
       if (result?.fixed) {
         fixed++;
         log(`  [compat] ${check.name}: ${result.message || "已修复"}`);

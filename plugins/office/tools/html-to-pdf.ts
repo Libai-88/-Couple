@@ -89,7 +89,7 @@ export const parameters = {
   },
 };
 
-export async function execute(input, ctx) {
+export async function execute(input: any, ctx: any) {
   try {
     const result = await renderHtmlToPdf(input, ctx);
     return {

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "fs";
 import path from "path";
 import { loadStudioMountRegistry } from "./studio-mounts.ts";

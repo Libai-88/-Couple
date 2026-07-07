@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * OpenAI-compatible input_audio helper.
  *

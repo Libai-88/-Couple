@@ -1,6 +1,6 @@
 import { normalizeMediaItems } from "../bridge/media-item-normalizer.ts";
 
-export function collectMediaItems(media) {
+export function collectMediaItems(media: any) {
   if (!media || typeof media !== "object") return [];
   if (Array.isArray(media.items) && media.items.length) {
     return normalizeMediaItems(media.items);

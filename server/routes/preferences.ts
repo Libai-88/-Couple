@@ -66,8 +66,8 @@ export function disabledComputerUseStatus(settings: any, { platform = process.pl
     platform,
     supported: isComputerUsePlatformSupported(platform),
     selectedProviderId: selectedComputerProviderIdFromSettings(settings, platform),
-    providers: [],
-    activeLease: null,
+    providers: [] as unknown[],
+    activeLease: null as unknown,
   };
 }
 

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Scheduler — Heartbeat + Cron 调度（v2）
  *

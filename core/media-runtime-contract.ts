@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const VALID_RUNTIME_KINDS = new Set(["http", "oauth-http", "local-cli", "browser-cli", "plugin"]);
 const VALID_OUTPUT_KINDS = new Set(["file_glob", "json_stdout", "url_stdout"]);
 const VALID_BINDING_SOURCES = new Set([

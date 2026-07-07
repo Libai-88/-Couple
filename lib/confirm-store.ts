@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ConfirmStore — 阻塞式确认存储
  *

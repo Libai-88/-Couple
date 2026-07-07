@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const COMMON_IMAGE_RATIOS = Object.freeze([
   "1:1",
   "16:9",

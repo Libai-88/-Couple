@@ -15,7 +15,7 @@ import { TaskStore } from "../lib/task-store.ts";
 // Helpers
 // ---------------------------------------------------------------------------
 
-const tmpDirs = [];
+const tmpDirs: string[] = [];
 
 function makeTmpDir() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "task-store-test-"));

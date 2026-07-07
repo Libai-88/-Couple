@@ -42,7 +42,7 @@ export class SlashCommandDispatcher {
     if (!def) return { handled: false };
 
     const role = this._resolveRole(ctx);
-    if (RANK[role] < RANK[def.permission]) {
+    if (RANK[role as keyof typeof RANK] < RANK[def.permission as keyof typeof RANK]) {
       try { log.log(`rejected: /${parsed.commandName} from ${role}`); } catch {}
       return { handled: true };
     }

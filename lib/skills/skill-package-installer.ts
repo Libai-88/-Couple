@@ -88,7 +88,7 @@ function upsertFrontmatterLine(frontmatter: any, key: any, value: any) {
   const line = `${key}: ${value}`;
   const re = new RegExp(`(^|\\r?\\n)${key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*:\\s*.*(?=\\r?\\n|$)`, "m");
   if (re.test(frontmatter)) {
-    return frontmatter.replace(re, (match, prefix = "") => `${prefix}${line}`);
+    return frontmatter.replace(re, (match: string, prefix = "") => `${prefix}${line}`);
   }
   const trimmed = frontmatter.replace(/\s*$/, "");
   return `${trimmed}${trimmed ? "\n" : ""}${line}`;

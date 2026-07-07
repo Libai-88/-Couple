@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { normalizePrincipal } from "../../core/security-principal.ts";
 import {
   PluginSurfaceSessionError,

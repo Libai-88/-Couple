@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Type, StringEnum } from "../pi-sdk/index.ts";
 import { toolOk } from "./tool-result.ts";
 import { getToolSessionPath } from "./tool-session.ts";

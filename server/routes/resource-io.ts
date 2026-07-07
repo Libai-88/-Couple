@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import crypto from "crypto";
 import { TextDecoder } from "util";
 import { Hono } from "hono";

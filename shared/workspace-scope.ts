@@ -1,6 +1,6 @@
 import path from "path";
 
-function cleanPath(value) {
+function cleanPath(value: unknown) {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
   if (!trimmed) return null;
@@ -25,7 +25,7 @@ export function normalizeWorkspaceScope({ primaryCwd, workspaceFolders }: { prim
   };
 }
 
-export function workspaceRootsForSandbox(primaryCwd, workspaceFolders, authorizedFolders = []) {
+export function workspaceRootsForSandbox(primaryCwd: string, workspaceFolders: string[], authorizedFolders: string[] = []) {
   const scope = normalizeSessionFolderScope({ primaryCwd, workspaceFolders, authorizedFolders });
   return scope.sandboxFolders;
 }

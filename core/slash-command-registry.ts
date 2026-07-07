@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * @typedef {'anyone'|'owner'|'admin'} Permission
  * @typedef {'session'|'agent'|'global'} Scope

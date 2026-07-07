@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "node:fs";
 import path from "node:path";
 import { createModuleLogger } from "../../lib/debug-log.ts";

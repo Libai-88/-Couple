@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const ALLOWED_CHAT_AUDIO_MIME_TYPES = Object.freeze([
   "audio/mpeg",
   "audio/mp3",

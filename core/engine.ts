@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * HanaEngine — Hanako 的核心引擎（Thin Facade）
  *

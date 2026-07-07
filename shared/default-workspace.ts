@@ -21,16 +21,16 @@ export function ensureDefaultWorkspace(homeDir = os.homedir()) {
   return workspacePath;
 }
 
-function normalizePathForCompare(p) {
+function normalizePathForCompare(p: string) {
   return process.platform === "win32" ? path.resolve(p).toLowerCase() : path.resolve(p);
 }
 
-export function isDefaultWorkspacePath(cwd, homeDir = os.homedir()) {
+export function isDefaultWorkspacePath(cwd: string, homeDir = os.homedir()) {
   if (typeof cwd !== "string" || !cwd.trim()) return false;
   return normalizePathForCompare(cwd) === normalizePathForCompare(resolveDefaultWorkspacePath(homeDir));
 }
 
-export function restoreDefaultWorkspaceIfMissing(cwd, homeDir = os.homedir()) {
+export function restoreDefaultWorkspaceIfMissing(cwd: string, homeDir = os.homedir()) {
   if (typeof cwd !== "string" || !cwd.trim()) return false;
   const defaultPath = resolveDefaultWorkspacePath(homeDir);
   if (!isDefaultWorkspacePath(cwd, homeDir)) return false;

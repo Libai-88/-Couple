@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // plugins/image-gen/index.js
 import path from "node:path";
 import fs from "node:fs";

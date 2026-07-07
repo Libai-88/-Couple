@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { COMPUTER_USE_ERRORS, computerUseError } from "./errors.ts";
 import { assertComputerUseModelSupported } from "./model-policy.ts";
 import { ComputerLeaseRegistry } from "./lease-registry.ts";

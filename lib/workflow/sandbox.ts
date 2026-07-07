@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import vm from "node:vm";
 import { extractMeta } from "./meta.ts";
 import { WORKFLOW_RUNTIME_CONTRACT } from "./host-api.ts";

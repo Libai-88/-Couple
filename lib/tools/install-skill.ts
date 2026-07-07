@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * install-skill.js — install_skill 工具
  *

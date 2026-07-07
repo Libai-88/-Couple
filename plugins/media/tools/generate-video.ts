@@ -45,7 +45,7 @@ export const parameters = {
   required: ["prompt"],
 };
 
-function present(value) {
+function present(value: unknown) {
   return value !== undefined && value !== null && value !== "";
 }
 
@@ -63,7 +63,7 @@ function mediaInput(input: any = {}) {
   };
 }
 
-function sessionPayload(ctx: any = {}, input) {
+function sessionPayload(ctx: any = {}, input: any) {
   return {
     ...(ctx.sessionId ? { sessionId: ctx.sessionId } : {}),
     ...(ctx.sessionPath ? { sessionPath: ctx.sessionPath } : {}),
@@ -89,7 +89,7 @@ export async function execute(input: any = {}, ctx: any = {}) {
   }
 
   const tasks = Array.isArray(result?.tasks)
-    ? result.tasks.filter((task) => task && typeof task.taskId === "string" && task.taskId)
+    ? result.tasks.filter((task: any) => task && typeof task.taskId === "string" && task.taskId)
     : [];
   if (!result?.ok || tasks.length === 0) {
     return {

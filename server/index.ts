@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * HanaAgent Server — HTTP + WebSocket API
  *

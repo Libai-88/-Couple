@@ -57,13 +57,13 @@ export const parameters = {
   },
 };
 
-export async function execute(input, ctx: any = {}) {
+export async function execute(input: any, ctx: any = {}) {
   try {
     const result = await readOfficeDocument(input, {
       resources: ctx?.resources,
     });
     const text = result.format === "json"
-      ? JSON.stringify(result.workbook, null, 2)
+      ? JSON.stringify((result as any).workbook, null, 2)
       : result.content;
     return {
       content: [{

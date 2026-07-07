@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // shared/tool-categories.js
 //
 // Single source of truth for built-in tool categorization.

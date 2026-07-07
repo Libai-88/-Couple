@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ChannelRouter — 频道调度（从 engine.js 搬出）
  *

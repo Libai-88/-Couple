@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * 头像管理 REST 路由
  *

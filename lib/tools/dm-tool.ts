@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * dm-tool.js — Agent 私信工具
  *

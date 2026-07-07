@@ -10,10 +10,10 @@ import {
 } from "../../shared/model-capabilities.ts";
 import { normalizeOpenAIInputAudioPayload } from "./input-audio.ts";
 
-export function matches(model) {
+export function matches(model: unknown) {
   return resolveModelAudioInputTransport(model) === MODEL_AUDIO_TRANSPORTS.OPENAI_INPUT_AUDIO;
 }
 
-export function apply(payload) {
+export function apply(payload: unknown) {
   return normalizeOpenAIInputAudioPayload(payload);
 }

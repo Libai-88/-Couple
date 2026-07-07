@@ -1,4 +1,4 @@
-export function getAutomationExecutor(job) {
+export function getAutomationExecutor(job: any) {
   if (job?.executor?.kind) return job.executor;
   return {
     kind: "agent_session",

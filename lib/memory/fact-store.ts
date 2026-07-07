@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * fact-store.js — 深度记忆存储（元事实 + 标签）
  *

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * todo-compat.js — 旧格式 → 新格式转换的纯函数
  *

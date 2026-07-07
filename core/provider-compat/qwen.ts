@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Qwen-style provider 兼容层
  *

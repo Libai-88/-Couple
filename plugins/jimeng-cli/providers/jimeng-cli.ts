@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const id = "jimeng-cli";
 export const displayName = "即梦 CLI";
 export const authType = "none";

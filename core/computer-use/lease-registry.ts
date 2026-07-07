@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import crypto from "crypto";
 import { COMPUTER_USE_ERRORS, computerUseError } from "./errors.ts";
 

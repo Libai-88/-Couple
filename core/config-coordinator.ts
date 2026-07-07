@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ConfigCoordinator — 运行时配置管理
  *

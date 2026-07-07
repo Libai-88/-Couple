@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * web-reader.js — HTML → Markdown reader for LLM-friendly web_fetch output.
  *

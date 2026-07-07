@@ -7,7 +7,7 @@ import vm from "node:vm";
  * @param {string} script
  * @returns {{ meta: { name: string, description: string, phases?: any[] }, body: string }}
  */
-export function extractMeta(script) {
+export function extractMeta(script: string) {
   if (typeof script !== "string" || !script.trim()) {
     throw new Error("workflow script 不能为空");
   }
@@ -50,7 +50,7 @@ export function extractMeta(script) {
  * @param {string} body
  * @returns {string}
  */
-function normalizeExports(body) {
+function normalizeExports(body: string) {
   let hasDefault = false;
   let out = body.replace(/export\s+default\s+/, () => {
     hasDefault = true;
@@ -69,7 +69,7 @@ function normalizeExports(body) {
  * @param {number} start
  * @returns {number} 配对 `}` 的下标，未闭合返回 -1
  */
-function matchBrace(s, start) {
+function matchBrace(s: string, start: number) {
   let depth = 0;
   let inStr = null;
   for (let i = start; i < s.length; i++) {

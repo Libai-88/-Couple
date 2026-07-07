@@ -2,13 +2,13 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 
-function basenameForUpload(value, fallback = "skill.skill") {
+function basenameForUpload(value: unknown, fallback = "skill.skill") {
   const raw = typeof value === "string" && value.trim() ? value.trim() : fallback;
   const name = path.basename(raw).replace(/[\r\n]/g, "").trim();
   return name || fallback;
 }
 
-function decodeUploadedFileBody(body) {
+function decodeUploadedFileBody(body: any) {
   const file = body?.file && typeof body.file === "object" && !Array.isArray(body.file)
     ? body.file
     : body;
@@ -22,7 +22,7 @@ function decodeUploadedFileBody(body) {
   };
 }
 
-export function materializeUploadedSkillPackage(engine, body) {
+export function materializeUploadedSkillPackage(engine: any, body: any) {
   const upload = decodeUploadedFileBody(body);
   if (!upload) return null;
   const base64 = upload.contentBase64.includes(",")

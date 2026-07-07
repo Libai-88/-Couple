@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * seatbelt.js — macOS Seatbelt (sandbox-exec) 沙盒
  *

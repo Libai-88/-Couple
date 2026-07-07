@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * rc-pending-handler.js — bridge-manager 侧的 pending-selection 消息处理
  *

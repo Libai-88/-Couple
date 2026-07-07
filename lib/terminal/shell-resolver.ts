@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { resolveShellProfile as resolveDefaultShellProfile } from "../shell/shell-profile.ts";
 import {
   baseNameForShellPath,

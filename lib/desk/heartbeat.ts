@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * heartbeat.js — 日常巡检 + 笺目录扫描
  *

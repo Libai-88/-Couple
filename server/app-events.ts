@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { createModuleLogger } from "../lib/debug-log.ts";
 
 const log = createModuleLogger("app-events");

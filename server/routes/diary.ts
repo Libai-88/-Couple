@@ -12,7 +12,7 @@ import { createModuleLogger } from "../../lib/debug-log.ts";
 
 const log = createModuleLogger("diary");
 
-export function createDiaryRoute(engine) {
+export function createDiaryRoute(engine: any) {
   const route = new Hono();
 
   /** POST /diary/write — 触发日记生成 */

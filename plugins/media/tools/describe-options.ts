@@ -29,7 +29,7 @@ export const parameters = {
   required: ["kind"],
 };
 
-function capabilityForKind(kind) {
+function capabilityForKind(kind: string) {
   return kind === "video" ? "video_generation" : "image_generation";
 }
 
@@ -42,7 +42,7 @@ function compactModel(model: any = {}) {
     supportsEdit: !!model.supportsEdit,
     inputLimits: model.inputLimits || null,
     modes: Array.isArray(model.modes)
-      ? model.modes.map((mode) => ({
+      ? model.modes.map((mode: any) => ({
         id: mode.id,
         label: mode.label || mode.id,
         inputLimits: mode.inputLimits || null,
@@ -82,7 +82,7 @@ export async function execute(input: any = {}, ctx: any = {}) {
 
   const models = provider.models || [];
   const model = input.model
-    ? models.find((item) => item.id === input.model || item.aliases?.includes?.(input.model))
+    ? models.find((item: any) => item.id === input.model || item.aliases?.includes?.(input.model))
     : models[0];
   if (!model) {
     return {
@@ -93,7 +93,7 @@ export async function execute(input: any = {}, ctx: any = {}) {
 
   const modeId = input.mode || inferMediaMode(kind, {});
   const modes = Array.isArray(model.modes) ? model.modes : [];
-  const mode = modes.find((item) => item.id === modeId) || modes[0] || null;
+  const mode = modes.find((item: any) => item.id === modeId) || modes[0] || null;
   const summary = {
     kind,
     providerId: input.provider,

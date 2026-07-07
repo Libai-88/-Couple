@@ -11,7 +11,7 @@ function isSensitiveKey(key: any) {
   return typeof key === "string" && SENSITIVE_KEY_RE.test(key);
 }
 
-function redactSensitive(value: any, parentKey = "") {
+function redactSensitive(value: any, parentKey = ""): unknown {
   if (isSensitiveKey(parentKey)) return MASKED_VALUE;
   if (Array.isArray(value)) return value.map((item: any) => redactSensitive(item));
   if (isPlainObject(value)) {

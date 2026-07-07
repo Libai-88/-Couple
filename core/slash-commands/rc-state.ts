@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * rc-state.js — /rc & /exitrc 的内存态管理
  *

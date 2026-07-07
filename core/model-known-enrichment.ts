@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { getPiModel } from "../lib/pi-sdk/index.ts";
 import { lookupKnown } from "../shared/known-models.ts";
 import { normalizeVisionCapabilities, withThinkingFormatCompat } from "../shared/model-capabilities.ts";

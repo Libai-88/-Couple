@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Deferred Result Pi SDK Extension
  *

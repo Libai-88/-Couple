@@ -62,7 +62,7 @@ export function createSandboxResourceIO({
   });
 
   const trashRoot = path.join(hanakoHome, "trash");
-  const localFsProviderFactory = ({ cwd: providerCwd, guard }) => new LocalFsProvider({ cwd: providerCwd, guard, trashRoot });
+  const localFsProviderFactory = ({ cwd: providerCwd, guard }: { cwd: string; guard: any }) => new LocalFsProvider({ cwd: providerCwd, guard, trashRoot });
   const providers: Record<string, ResourceIoProvider> = {
     local_fs: localFsProviderFactory({ cwd, guard: resourceAccessGuard }),
     url: new UrlProvider({ materializeRoot: urlMaterializeRoot }),

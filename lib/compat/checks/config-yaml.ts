@@ -9,7 +9,7 @@ import fs from "fs";
 import path from "path";
 import { t } from "../../i18n.ts";
 
-export function checkConfigYaml({ agentDir, hanakoHome }) {
+export function checkConfigYaml({ agentDir, hanakoHome }: { agentDir: string; hanakoHome: string }) {
   const configPath = path.join(agentDir, "config.yaml");
   if (!fs.existsSync(configPath)) return;
 

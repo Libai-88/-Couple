@@ -11,7 +11,7 @@ export const ansi = Object.freeze({
   gray: "\x1b[90m",
 });
 
-export function color(hex) {
+export function color(hex: string) {
   const value = String(hex || "").replace("#", "");
   if (!/^[0-9a-f]{6}$/i.test(value)) return "";
   const r = parseInt(value.slice(0, 2), 16);
@@ -20,7 +20,7 @@ export function color(hex) {
   return `\x1b[38;2;${r};${g};${b}m`;
 }
 
-export function createTerminalTheme(yuan) {
+export function createTerminalTheme(yuan?: string | null) {
   const visual = getYuanVisual(yuan);
   const accent = color(visual.accent);
   return {
@@ -40,6 +40,6 @@ export function createTerminalTheme(yuan) {
   };
 }
 
-export function paint(theme, text) {
+export function paint(theme: ReturnType<typeof createTerminalTheme>, text: string) {
   return `${theme.accent}${text}${ansi.reset}`;
 }

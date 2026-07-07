@@ -41,7 +41,7 @@ export function resolveSubagentToolStrategy() {
  * 省略 access 时像 Codex 一样继承父会话档。后台任务无法交互确认这件事不在这里坍缩成
  * operate，而是在执行层通过 approvalPolicy:"deny_on_prompt" 返回结构化 unavailable。
  */
-function resolveInheritedMode(parentPermissionMode) {
+function resolveInheritedMode(parentPermissionMode: string) {
   if (parentPermissionMode == null) return SESSION_PERMISSION_MODES.OPERATE;
   return normalizeSessionPermissionMode(parentPermissionMode);
 }
@@ -62,7 +62,7 @@ export class SubagentAccessDeniedError extends Error {
   }
 }
 
-function resolvePermissionMode(access, parentPermissionMode) {
+function resolvePermissionMode(access: string, parentPermissionMode: string) {
   if (access === "read") return SESSION_PERMISSION_MODES.READ_ONLY;
   if (access === "write") {
     // 子不超父：父档只读时禁止授予写权限（显式报错，不静默降级）。

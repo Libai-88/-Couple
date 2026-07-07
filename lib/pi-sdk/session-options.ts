@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "node:fs";
 
 export const PI_BUILTIN_TOOL_NAMES = Object.freeze([

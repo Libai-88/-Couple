@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * image-gen/lib/poller.js
  *

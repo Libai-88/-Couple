@@ -25,7 +25,7 @@ export function createServerIdentityRoute({ hanakoHome, appVersion = "?", getRun
   return route;
 }
 
-function contextForPrincipal(runtimeContext, principal) {
+function contextForPrincipal(runtimeContext: any, principal: any) {
   if (!principal || principal.kind === "local_user") return runtimeContext;
   return {
     ...runtimeContext,
@@ -41,7 +41,7 @@ function contextForPrincipal(runtimeContext, principal) {
   };
 }
 
-function capabilitiesForPrincipal(principal, fallback = []) {
+function capabilitiesForPrincipal(principal: any, fallback: unknown[] = []) {
   const scopes = Array.isArray(principal?.scopes) ? principal.scopes : [];
   if (scopes.length === 0) return Array.isArray(fallback) ? [...fallback] : [];
   const out = new Set();

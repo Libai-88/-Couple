@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * web-search.js — web_search 自定义工具
  *

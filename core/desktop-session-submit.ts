@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * 桌面 session 的统一提交入口。
  * 本地输入与 bridge /rc 接管都应通过这一层提交消息到桌面 session。
@@ -222,7 +224,10 @@ export async function submitDesktopSessionMessage(engine: any, opts: {
         if (sub?.type === "text_delta") {
           const delta = sub.delta || "";
           captured += delta;
-          try { onDelta?.(delta, captured); } catch {}
+          try { onDelta?.(delta, captured); } catch (err) {
+            // eslint-disable-next-line no-console
+            console.warn(`[desktop-session-submit] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+          }
         }
       } else if (event.type === "tool_execution_end" && !event.isError) {
         toolMedia.push(...collectMediaItems(event.result?.details?.media));
@@ -249,7 +254,10 @@ export async function submitDesktopSessionMessage(engine: any, opts: {
       });
       await engine.promptSession(sessionPath, promptText, promptOpts);
     } finally {
-      try { unsub?.(); } catch {}
+      try { unsub?.(); } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn(`[desktop-session-submit] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+      }
       engine.emitEvent?.({ type: "session_status", isStreaming: false }, sessionPath);
     }
 

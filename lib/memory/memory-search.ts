@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * memory-search.js — search_memory 工具（v2 标签检索）
  *

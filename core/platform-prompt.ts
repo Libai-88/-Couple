@@ -2,11 +2,11 @@ import os from "node:os";
 import { envValue, baseNameForShellPath } from "../lib/shell/shell-utils.ts";
 import { SANDBOX_MODE_LABEL } from "../lib/sandbox/policy.ts";
 
-function shellNameFromPath(shellPath) {
+function shellNameFromPath(shellPath: string) {
   return baseNameForShellPath(shellPath, { stripExe: true });
 }
 
-function getExecShellLabel(platform, env = process.env) {
+function getExecShellLabel(platform: string, env = process.env) {
   if (platform === "win32") return "powershell";
   return shellNameFromPath(envValue(env, "SHELL")) || "bash";
 }

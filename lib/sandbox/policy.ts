@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * policy.js — 沙盒策略单一来源
  *

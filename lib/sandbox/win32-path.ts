@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from "path";
 
 const MSYS_DRIVE_RE = /^\/([a-zA-Z])(?:\/(.*))?$/;

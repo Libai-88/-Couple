@@ -58,7 +58,7 @@ export async function getWechatQrcode() {
  * @param {string} qrcodeId - 从 getWechatQrcode 获取的 qrcode 值
  * @returns {Promise<{ status: string, botToken?: string, botId?: string, userId?: string, baseUrl?: string, error?: string }>}
  */
-export async function pollWechatQrcodeStatus(qrcodeId) {
+export async function pollWechatQrcodeStatus(qrcodeId: string) {
   if (!qrcodeId) {
     return { status: "error", error: "qrcodeId is required" };
   }

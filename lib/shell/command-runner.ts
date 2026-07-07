@@ -8,7 +8,7 @@ export function createCommandRunner({
   resolveWin32ShellRuntime,
   getWin32ShellEnvForRuntime,
 }: Record<string, any> = {}) {
-  return async function runShellCommand(command, cwd, opts: Record<string, any> = {}) {
+  return async function runShellCommand(command: string, cwd: string, opts: Record<string, any> = {}) {
     if (typeof spawnCommand !== "function") {
       throw new Error("spawnCommand is required");
     }

@@ -31,7 +31,7 @@ export const DeskPermission = {
  * @param {object} [config] - agent 配置（未来可从中读取权限表）
  * @returns {boolean}
  */
-export function canAccess(agentId, permission, config) {
+export function canAccess(agentId: string, permission: string, config?: Record<string, unknown>) {
   // v1：所有 agent 都有权限
   // 未来：检查 config.desk?.permissions?.[agentId] 白名单
   //

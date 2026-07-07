@@ -400,14 +400,14 @@ function isDirectorySelfEcho(rootPath: string, candidatePath: string): boolean {
     && !safePathExists(candidate);
 }
 
-function defaultStatPath(targetPath: string) {
+function defaultStatPath(targetPath: string): { exists: boolean; isDirectory: boolean; mtimeMs?: number; size: number | null } {
   try {
     const stat = fs.statSync(targetPath);
     return {
       exists: true,
       isDirectory: stat.isDirectory(),
       mtimeMs: stat.mtimeMs,
-      size: stat.isDirectory() ? null : stat.size,
+      size: stat.isDirectory() ? null : (stat.size as number),
     };
   } catch (err) {
     if ((err as any)?.code === "ENOENT") {

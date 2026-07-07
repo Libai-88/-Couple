@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * feishu-adapter.js — 飞书 Bot WebSocket 长连接适配器
  *

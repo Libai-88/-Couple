@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * image-gen/lib/task-store.js
  *

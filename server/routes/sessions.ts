@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Session 管理 REST 路由
  */

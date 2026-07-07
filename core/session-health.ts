@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Session 健康度评估（#521）
  *

@@ -1,10 +1,12 @@
 import readline from "readline";
+import WebSocket from "ws";
 import { createTerminalTheme, ansi, paint } from "./terminal-theme.ts";
+import { HanaCliClient } from "./client.ts";
 
-export async function printStatus(client, connection) {
+export async function printStatus(client: HanaCliClient, connection: ReturnType<typeof import("./local-server.ts").resolveConnection>) {
   const [health, identity] = await Promise.all([
     client.health(),
-    client.identity().catch(() => null),
+    client.identity().catch((): null => null),
   ]);
   const theme = createTerminalTheme(health.agentYuan);
   console.log(`${paint(theme, theme.symbol)} Couple Server`);
@@ -16,7 +18,7 @@ export async function printStatus(client, connection) {
   console.log(`  ${ansi.dim}Auth${ansi.reset}      ${identity?.credentialKind || connection.source || "unknown"}`);
 }
 
-export async function printSessions(client, { limit = 20 } = {}) {
+export async function printSessions(client: HanaCliClient, { limit = 20 } = {}) {
   const sessions = await client.sessions();
   if (!sessions.length) {
     console.log(`${ansi.dim}No sessions yet.${ansi.reset}`);
@@ -28,7 +30,7 @@ export async function printSessions(client, { limit = 20 } = {}) {
   return sessions;
 }
 
-export async function startChat(client, connection, opts: { session?: any; target?: any; plain?: boolean } = {}) {
+export async function startChat(client: HanaCliClient, connection: ReturnType<typeof import("./local-server.ts").resolveConnection>, opts: { session?: any; target?: any; plain?: boolean } = {}) {
   const ctx = await loadContext(client);
   let theme = createTerminalTheme(ctx.agentYuan);
   let session = await resolveChatSession(client, opts.session || opts.target);
@@ -38,7 +40,7 @@ export async function startChat(client, connection, opts: { session?: any; targe
 
   let streaming = false;
   let currentMood = "";
-  let thinkingTimer = null;
+  let thinkingTimer: ReturnType<typeof setInterval> | null = null;
   let thinkingFrame = 0;
 
   const rl = readline.createInterface({
@@ -81,7 +83,7 @@ export async function startChat(client, connection, opts: { session?: any; targe
   }
 
   async function refreshTheme() {
-    const next = await loadContext(client).catch(() => null);
+    const next = await loadContext(client).catch((): null => null);
     if (!next) return;
     ctx.agentName = next.agentName;
     ctx.userName = next.userName;
@@ -89,7 +91,7 @@ export async function startChat(client, connection, opts: { session?: any; targe
     theme = createTerminalTheme(ctx.agentYuan);
   }
 
-  async function switchTo(target) {
+  async function switchTo(target: string) {
     session = await resolveChatSession(client, target);
     sessionPath = session.path;
     await refreshTheme();
@@ -97,7 +99,7 @@ export async function startChat(client, connection, opts: { session?: any; targe
     prompt();
   }
 
-  async function handleCommand(line) {
+  async function handleCommand(line: string) {
     const [cmd, ...parts] = line.slice(1).trim().split(/\s+/);
     if (cmd === "q" || cmd === "quit" || cmd === "exit") {
       closeAndExit(0);
@@ -144,7 +146,7 @@ ${paint(theme, "/quit")}              exit
     prompt();
   }
 
-  function closeAndExit(code) {
+  function closeAndExit(code: number) {
     try { ws.close(); } catch {}
     try { rl.close(); } catch {}
     if (process.stdin.isTTY) {
@@ -158,7 +160,7 @@ ${paint(theme, "/quit")}              exit
     prompt();
   });
 
-  ws.on("message", async (data) => {
+  ws.on("message", async (data: WebSocket.Data) => {
     const msg = safeParse(data.toString());
     if (!msg) return;
     if (msg.type === "app_event" && (
@@ -225,7 +227,7 @@ ${paint(theme, "/quit")}              exit
     closeAndExit(0);
   });
 
-  ws.on("error", (err) => {
+  ws.on("error", (err: Error) => {
     stopThinking();
     console.error(`\n${ansi.red}${err.message}${ansi.reset}`);
   });
@@ -276,14 +278,14 @@ ${paint(theme, "/quit")}              exit
   }
 }
 
-async function loadContext(client) {
+async function loadContext(client: HanaCliClient) {
   const [health, agentsResult] = await Promise.all([
     client.health(),
-    client.agents().catch(() => ({ agents: [] })),
+    client.agents().catch((): { agents: Array<{ id?: string; name?: string; yuan?: string }> } => ({ agents: [] })),
   ]);
   const agents = Array.isArray(agentsResult.agents) ? agentsResult.agents : [];
-  const current = agents.find((agent) => agent.id === health.agentId)
-    || agents.find((agent) => agent.name === health.agent)
+  const current = agents.find((agent: { id?: string; name?: string; yuan?: string }) => agent.id === health.agentId)
+    || agents.find((agent: { id?: string; name?: string; yuan?: string }) => agent.name === health.agent)
     || agents[0]
     || null;
   return {
@@ -294,7 +296,7 @@ async function loadContext(client) {
   };
 }
 
-async function resolveChatSession(client, target) {
+async function resolveChatSession(client: HanaCliClient, target: string | undefined) {
   if (target) {
     const sessions = await client.sessions();
     const found = selectSession(sessions, target);
@@ -312,24 +314,24 @@ async function resolveChatSession(client, target) {
   return { path: created.path, title: null, firstMessage: "" };
 }
 
-export function selectSession(sessions, target) {
+export function selectSession(sessions: Array<{ path: string; title?: string | null; firstMessage?: string; agentName?: string; agentId?: string; modified?: string }>, target: string | undefined) {
   if (!target) return sessions[0] || null;
   const trimmed = String(target).trim();
   const maybeIndex = Number.parseInt(trimmed, 10);
   if (String(maybeIndex) === trimmed && maybeIndex > 0) {
     return sessions[maybeIndex - 1] || null;
   }
-  return sessions.find((session) => session.path === trimmed) || null;
+  return sessions.find((session: { path: string }) => session.path === trimmed) || null;
 }
 
-export function formatSessionLine(session, index) {
+export function formatSessionLine(session: { title?: string | null; firstMessage?: string; agentName?: string; agentId?: string; modified?: string }, index: number) {
   const title = session.title || session.firstMessage || "Untitled";
   const agent = session.agentName || session.agentId || "Agent";
   const modified = session.modified ? new Date(session.modified).toLocaleString() : "";
   return `${ansi.dim}${String(index).padStart(2, " ")}.${ansi.reset} ${title.slice(0, 72)} ${ansi.dim}· ${agent}${modified ? ` · ${modified}` : ""}${ansi.reset}`;
 }
 
-function safeParse(text) {
+function safeParse(text: string) {
   try {
     return JSON.parse(text);
   } catch {

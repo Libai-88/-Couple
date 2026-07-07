@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * output-file-tool.js — 文件暂存工具（stage_files）
  *

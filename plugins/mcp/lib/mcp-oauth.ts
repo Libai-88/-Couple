@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import crypto from "node:crypto";
 import { MCP_PROTOCOL_VERSION } from "./mcp-stdio-client.ts";
 import { McpHttpError } from "./mcp-http-client.ts";

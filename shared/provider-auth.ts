@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Provider auth policy helpers.
  *

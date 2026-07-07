@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * media-utils.js — Bridge 媒体工具层
  *

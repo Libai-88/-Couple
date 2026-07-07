@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import ImageGenPlugin from "../index.ts";
 
-const tmpDirs = [];
+const tmpDirs: string[] = [];
 
 function makeTmpDir() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "image-gen-plugin-test-"));
@@ -28,7 +28,7 @@ function createBusHarness() {
       }),
       subscribe: vi.fn(() => () => {}),
     },
-    async request(type, payload) {
+    async request(type: string, payload: any) {
       const handler = handlers.get(type);
       if (!handler) throw new Error(`missing handler ${type}`);
       return handler(payload);

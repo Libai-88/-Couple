@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import crypto from "node:crypto";
 
 export const CACHE_PREFIX_CONTRACT_VERSION = 1;

@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 
-export function createSessionProjectsRoute(engine) {
+export function createSessionProjectsRoute(engine: any) {
   const route = new Hono();
 
   route.get("/session-projects", (c) => {

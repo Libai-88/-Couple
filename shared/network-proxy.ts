@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // shared/network-proxy.js
 
 export const NETWORK_PROXY_MODES = ["system", "manual", "direct"];

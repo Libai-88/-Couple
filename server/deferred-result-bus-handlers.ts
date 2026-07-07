@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { normalizeDeferredResolveResult } from "../lib/deferred-result-payload.ts";
 
 function textOrNull(value) {

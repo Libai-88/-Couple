@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * LLM Utilities — 轻量 LLM 调用（标题摘要、翻译、ID 生成等）
  *

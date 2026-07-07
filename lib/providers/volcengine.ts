@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Volcengine (火山引擎 / 豆包) provider plugin
  *

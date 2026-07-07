@@ -16,7 +16,7 @@ import { RcStateStore } from "./rc-state.ts";
 // 真要给 bridge 做 skill 执行时再专门写一条 "bridge 调 skill" 的路径，
 // 不在 registry 里留 silent 空壳。
 
-export function createSlashSystem({ engine, hub }) {
+export function createSlashSystem({ engine, hub }: { engine: any; hub: any }) {
   const registry = new SlashCommandRegistry();
   const sessionOps = createSessionOps({ engine });
   // Phase 2-A：rc 态 store 在 slash-system 构造时注入（随 engine 生命周期，重启清空）

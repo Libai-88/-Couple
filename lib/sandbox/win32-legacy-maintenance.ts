@@ -1,5 +1,5 @@
 // Legacy AppContainer maintenance is intentionally separate from restricted-token execution args.
-export function buildWin32LegacyAclDiagnosticArgs({ paths = [], cleanup = false } = {}) {
+export function buildWin32LegacyAclDiagnosticArgs({ paths = [] as string[], cleanup = false } = {}) {
   if (!Array.isArray(paths) || paths.length === 0) {
     throw new Error("win32 legacy ACL diagnostic requires at least one path");
   }
@@ -15,7 +15,7 @@ export function buildWin32LegacyAclDiagnosticArgs({ paths = [], cleanup = false 
   return out;
 }
 
-export function buildWin32HanaWriteAclCleanupArgs({ paths = [] } = {}) {
+export function buildWin32HanaWriteAclCleanupArgs({ paths = [] as string[] } = {}) {
   const targets = [...new Set((paths || []).filter(Boolean))];
   if (targets.length === 0) {
     throw new Error("win32 Hana write ACL cleanup requires at least one path");
@@ -27,7 +27,7 @@ export function buildWin32HanaWriteAclCleanupArgs({ paths = [] } = {}) {
   return out;
 }
 
-export function buildWin32LegacyProfileCleanupArgs({ profileNames = [] } = {}) {
+export function buildWin32LegacyProfileCleanupArgs({ profileNames = [] as string[] } = {}) {
   const names = [...new Set((profileNames || []).filter(Boolean))];
   if (names.length === 0) {
     throw new Error("win32 legacy profile cleanup requires at least one profile name");

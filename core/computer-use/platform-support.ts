@@ -18,5 +18,5 @@ export function effectiveComputerUseSettings(settings = {}, { platform = process
 export function selectedComputerProviderId(settings = {}, { platform = process.platform } = {}) {
   if (!isComputerUsePlatformSupported(platform)) return null;
   const normalized = normalizeComputerUseSettings(settings || {});
-  return normalized.provider_by_platform?.[platform] || null;
+  return normalized.provider_by_platform?.[platform as keyof typeof normalized.provider_by_platform] || null;
 }

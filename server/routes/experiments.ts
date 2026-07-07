@@ -11,7 +11,7 @@ import {
   readCacheSnapshotObservation,
 } from "../../lib/memory/cache-snapshot-observation.ts";
 
-function normalizeAgentId(value) {
+function normalizeAgentId(value: unknown) {
   const id = String(value || "").trim();
   if (!id) throw new Error("agentId is required");
   if (id.includes("/") || id.includes("\\") || id === "." || id === "..") {
@@ -20,14 +20,14 @@ function normalizeAgentId(value) {
   return id;
 }
 
-function resolveAgentDir(engine, rawAgentId) {
+function resolveAgentDir(engine: any, rawAgentId: unknown) {
   const agentId = normalizeAgentId(rawAgentId);
   if (typeof engine.getAgentDir === "function") return engine.getAgentDir(agentId);
   if (!engine.agentsDir) throw new Error("agent directory resolver unavailable");
   return path.join(engine.agentsDir, agentId);
 }
 
-export function createExperimentsRoute(engine) {
+export function createExperimentsRoute(engine: any) {
   const route = new Hono();
 
   route.get("/experiments", async (c) => {

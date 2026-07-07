@@ -113,7 +113,7 @@ export function createPluginRouteRequestContext({
 
   const getCapability = typeof pluginBus.getCapability === "function"
     ? pluginBus.getCapability.bind(pluginBus)
-    : () => null;
+    : (): null => null;
 
   function assertCapabilityGrant(type: string) {
     const capability = getCapability(type);
@@ -171,7 +171,7 @@ export function createPluginRouteRequestContext({
     getCapability,
     listCapabilities: typeof pluginBus.listCapabilities === "function"
       ? pluginBus.listCapabilities.bind(pluginBus)
-      : () => [],
+      : (): unknown[] => [],
   });
 
   return Object.freeze({

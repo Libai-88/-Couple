@@ -8,11 +8,11 @@
 
 import { isDeepSeekFamilyModel, isDeepSeekReasoningModel } from "../shared/model-capabilities.ts";
 
-function isThinkingOff(level) {
+function isThinkingOff(level: string) {
   return level === "off" || level === "none" || level === "disabled";
 }
 
-function deepseekOutputContractPrompt(locale) {
+function deepseekOutputContractPrompt(locale: string) {
   const isZh = String(locale || "").startsWith("zh");
   if (!isZh) {
     return [
@@ -33,7 +33,7 @@ function deepseekOutputContractPrompt(locale) {
   ].join("\n");
 }
 
-export function getProviderPromptPatches(model, options: { reasoningLevel?: any; locale?: any } = {}) {
+export function getProviderPromptPatches(model: string, options: { reasoningLevel?: any; locale?: any } = {}) {
   if (isThinkingOff(options.reasoningLevel)) return [];
   if (!isDeepSeekReasoningModel(model)) return [];
   return [deepseekOutputContractPrompt(options.locale)];

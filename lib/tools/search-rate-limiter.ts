@@ -166,7 +166,7 @@ export class SearchRateLimiter {
 
   _policy(provider: any, sourceType: any) {
     return this._policies[provider]
-      || FALLBACK_POLICIES[sourceType]
+      || FALLBACK_POLICIES[sourceType as keyof typeof FALLBACK_POLICIES]
       || FALLBACK_POLICIES.api;
   }
 

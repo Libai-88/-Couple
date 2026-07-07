@@ -3,7 +3,7 @@ import { safeJson } from "../hono-helpers.ts";
 import { denyWithoutScope } from "../http/capability-guard.ts";
 import { recordSecurityAuditEvent } from "../http/security-audit.ts";
 
-export function createSpeechRecognitionRoute(engine) {
+export function createSpeechRecognitionRoute(engine: any) {
   const route = new Hono();
 
   route.get("/speech-recognition/providers", async (c) => {
@@ -39,7 +39,7 @@ export function createSpeechRecognitionRoute(engine) {
   return route;
 }
 
-function requireSpeechRecognitionService(engine) {
+function requireSpeechRecognitionService(engine: any) {
   if (!engine?.speechRecognition) {
     throw new Error("speech recognition service unavailable");
   }

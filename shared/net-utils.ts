@@ -8,7 +8,7 @@
  * @param {string} url
  * @returns {boolean}
  */
-export function isLocalBaseUrl(url) {
+export function isLocalBaseUrl(url: string) {
   try {
     const parsed = new URL(String(url || ""));
     if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;

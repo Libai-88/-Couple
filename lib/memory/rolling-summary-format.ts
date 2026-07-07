@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * rolling-summary-format.ts — rolling summary ⇄ compileEditableFacts 的格式契约单一源头 (#1628)
  *

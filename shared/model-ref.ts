@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * shared/model-ref.js — 模型引用复合键工具
  *

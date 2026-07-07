@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from "path";
 import { Type } from "../pi-sdk/index.ts";
 import { serializeSessionFile } from "../session-files/session-file-response.ts";

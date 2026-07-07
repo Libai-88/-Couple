@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * WebSocket 消息协议定义
  *

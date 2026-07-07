@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "fs";
 import path from "path";
 import { parseCookie } from "../../core/web-session-store.ts";

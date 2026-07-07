@@ -5,7 +5,7 @@ import { getCoverGalleryPreset } from "../../../shared/cover-gallery-presets.ts"
 
 const COVER_GALLERY_ASSET_SEGMENTS = ["desktop", "src", "assets", "cover-gallery"];
 
-function assertInsideDirectory(filePath, baseDir) {
+function assertInsideDirectory(filePath: string, baseDir: string) {
   const resolvedFilePath = path.resolve(filePath);
   const resolvedBaseDir = path.resolve(baseDir);
   if (resolvedFilePath !== resolvedBaseDir && !resolvedFilePath.startsWith(resolvedBaseDir + path.sep)) {
@@ -13,7 +13,7 @@ function assertInsideDirectory(filePath, baseDir) {
   }
 }
 
-export function resolveCoverGalleryPresetImagePath(presetId, { rootDir }: any = {}) {
+export function resolveCoverGalleryPresetImagePath(presetId: string, { rootDir }: any = {}) {
   const preset = getCoverGalleryPreset(presetId);
   if (!preset) {
     throw new Error("unknown cover gallery preset");

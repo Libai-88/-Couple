@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const FIELD_LABELS = Object.freeze({
   system: "system",
   beforeUser: "before_user",

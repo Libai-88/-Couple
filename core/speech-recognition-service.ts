@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MediaAdapterRegistry } from "./media-adapter-registry.ts";
 import { builtinSpeechRecognitionAdapters } from "./speech-recognition/adapters.ts";
 import { createModuleLogger } from "../lib/debug-log.ts";

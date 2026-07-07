@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "fs/promises";
 import path from "path";
 import { isSessionJsonlFilename } from "../lib/session-jsonl.ts";

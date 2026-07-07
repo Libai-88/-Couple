@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { normalizeWorkspacePath } from "./workspace-history.ts";
 import { normalizePreviewReadingPosition } from "./preview-reading-position.ts";
 

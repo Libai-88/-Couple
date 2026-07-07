@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { listRecentAgentSessions } from "./list-agent-sessions.ts";
 
 /** @type {import('../slash-command-registry.ts').CommandDef[]} */

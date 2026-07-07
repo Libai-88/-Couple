@@ -21,7 +21,7 @@ export function createWebSocketAuthRoute({ ticketService }: { ticketService: any
   return route;
 }
 
-function readTransportConnectionKind(c) {
+function readTransportConnectionKind(c: any) {
   if (typeof c?.get !== "function") return null;
   try {
     return c.get("transportConnectionKind") || null;

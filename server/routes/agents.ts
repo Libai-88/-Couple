@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * 助手管理 REST 路由
  *

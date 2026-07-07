@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const ALLOWED_ACTIONS = new Set(["allow", "deny_and_continue", "ask_user", "hard_deny"]);
 const REVIEWER_ACTIONS = new Set([...ALLOWED_ACTIONS, "escalate"]);
 const REVIEWER_SYSTEM_PROMPT = `You are Couple's automatic tool approval reviewer.

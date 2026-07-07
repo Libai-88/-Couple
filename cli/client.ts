@@ -5,13 +5,13 @@ export class HanaCliClient {
   declare token: string;
   declare queryTokenAllowed: boolean;
 
-  constructor({ baseUrl, token = "", queryTokenAllowed = false }) {
+  constructor({ baseUrl, token = "", queryTokenAllowed = false }: { baseUrl: string; token?: string; queryTokenAllowed?: boolean }) {
     this.baseUrl = String(baseUrl || "").replace(/\/+$/, "");
     this.token = token;
     this.queryTokenAllowed = queryTokenAllowed;
   }
 
-  async request(path, opts: Record<string, any> = {}) {
+  async request(path: string, opts: Record<string, any> = {}) {
     const headers: Record<string, string> = { ...(opts.headers || {}) };
     if (this.token) headers.Authorization = `Bearer ${this.token}`;
     let body = opts.body;
@@ -56,7 +56,7 @@ export class HanaCliClient {
     return this.request("/api/sessions/new", { method: "POST", body: {} });
   }
 
-  switchSession(sessionPath) {
+  switchSession(sessionPath: string) {
     return this.request("/api/sessions/switch", {
       method: "POST",
       body: { path: sessionPath },
@@ -77,7 +77,7 @@ export class HanaCliClient {
   }
 }
 
-function safeJson(text) {
+function safeJson(text: string) {
   try {
     return JSON.parse(text);
   } catch {

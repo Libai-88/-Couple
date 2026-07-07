@@ -153,12 +153,12 @@ export function getOutboundProxyConfig() {
   return currentConfig;
 }
 
-export function getNodeProxyAgentForUrl(targetUrl, env = process.env) {
+export function getNodeProxyAgentForUrl(targetUrl: string, env = process.env) {
   const proxyUrl = resolveProxyForUrl(targetUrl, currentConfig, env);
   if (!proxyUrl) return null;
   let agent = nodeProxyAgentCache.get(proxyUrl);
   if (!agent) {
-    agent = new NodeProxyAgent(proxyUrl);
+    agent = new NodeProxyAgent(proxyUrl as any);
     nodeProxyAgentCache.set(proxyUrl, agent);
   }
   return agent;

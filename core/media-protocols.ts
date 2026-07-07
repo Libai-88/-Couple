@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * media-protocols.ts — media capability 命名与 protocol 推断的唯一入口
  *

@@ -8,7 +8,7 @@ export const WORKSPACE_SKILL_DIRS = [
   { sub: ".agents/skills", label: "Agents" },
 ];
 
-export function resolveWorkspaceSkillPaths(workspaceDir) {
+export function resolveWorkspaceSkillPaths(workspaceDir: string) {
   if (!workspaceDir) return [];
   return WORKSPACE_SKILL_DIRS
     .map(({ sub, label }) => ({

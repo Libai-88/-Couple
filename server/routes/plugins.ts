@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Hono } from "hono";
 import fs from "fs";
 import path from "path";

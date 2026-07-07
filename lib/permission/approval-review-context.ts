@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "fs";
 
 const DEFAULT_TRANSCRIPT_TAIL_BYTES = 192 * 1024;

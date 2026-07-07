@@ -19,6 +19,6 @@ export const HANA_ROOT = process.env.HANA_ROOT || path.resolve(__dirname, "..");
  * @param {...string} segments - 路径片段
  * @returns {string} 绝对路径
  */
-export function fromRoot(...segments) {
+export function fromRoot(...segments: string[]) {
   return path.join(HANA_ROOT, ...segments);
 }

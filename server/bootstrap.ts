@@ -2,13 +2,13 @@ import path from "path";
 import { pathToFileURL } from "url";
 import { Worker } from "worker_threads";
 
-function log(line) {
+function log(line: string) {
   try {
     process.stdout.write(`${line}\n`);
   } catch {}
 }
 
-function logError(line) {
+function logError(line: string) {
   try {
     process.stderr.write(`${line}\n`);
   } catch {}

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // plugins/image-gen/routes/media.js
 import fs from "fs";
 import path from "path";

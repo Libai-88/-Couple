@@ -28,7 +28,7 @@ export const parameters = {
   required: ["targetFilePath", "generatedFilePath"],
 };
 
-export async function execute(input, ctx) {
+export async function execute(input: any, ctx: any) {
   if (!input.targetFilePath || !path.isAbsolute(input.targetFilePath)) {
     return { content: [{ type: "text", text: t("toolDef.applyCoverCandidate.targetFilePathRequired") }] };
   }

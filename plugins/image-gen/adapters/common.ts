@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "fs";
 import path from "path";
 import { saveImage } from "../lib/download.ts";

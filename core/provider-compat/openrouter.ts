@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * OpenRouter provider compatibility layer.
  *

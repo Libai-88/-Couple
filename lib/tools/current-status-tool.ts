@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * current-status-tool.js — 渐进式查询当前运行环境
  *

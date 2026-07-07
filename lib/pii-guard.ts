@@ -31,7 +31,7 @@ const HARD_PATTERNS = [
  * @param {string} text - 待检查文本
  * @returns {{ cleaned: string, detected: string[] }} 脱敏后的文本 + 检测到的类型列表
  */
-export function scrubPII(text) {
+export function scrubPII(text: string) {
   if (!text) return { cleaned: text, detected: [] };
 
   const detected = [];
@@ -55,7 +55,7 @@ export function scrubPII(text) {
  * @param {string} text
  * @returns {boolean}
  */
-export function hasPII(text) {
+export function hasPII(text: string) {
   if (!text) return false;
   for (const { regex } of HARD_PATTERNS) {
     regex.lastIndex = 0;

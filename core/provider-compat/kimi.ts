@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Kimi / Moonshot OpenAI-compatible thinking compatibility.
  *

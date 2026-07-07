@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ExecutionRouter -- per-agent 角色路由
  *

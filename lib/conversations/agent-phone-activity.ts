@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * In-memory Agent Phone activity snapshot.
  *

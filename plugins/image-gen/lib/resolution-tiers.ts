@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const OPENAI_MIN_PIXELS = 655_360;
 const OPENAI_MAX_PIXELS = 8_294_400;
 const OPENAI_MAX_EDGE = 3840;

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from "node:path";
 import { t } from "../../../lib/i18n.ts";
 

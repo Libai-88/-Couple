@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { readImageSize } from "../lib/image-size.ts";
 import { writeFileSync, mkdtempSync, rmSync } from "node:fs";

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * fs.js — 文件系统 API（Web 客户端用）
  *

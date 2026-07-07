@@ -12,7 +12,7 @@ import { createModuleLogger } from "../../debug-log.ts";
 
 const moduleLog = createModuleLogger("compat");
 
-export async function checkFactsDb({ agentDir, log }) {
+export async function checkFactsDb({ agentDir, log }: { agentDir: string; log: (msg: string) => void }) {
   const dbPath = path.join(agentDir, "memory", "facts.db");
   if (!fs.existsSync(dbPath)) return; // 新 agent，没有 db 很正常
 

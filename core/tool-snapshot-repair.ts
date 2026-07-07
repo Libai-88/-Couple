@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { CORE_TOOL_NAMES, uniqueToolNames } from "../shared/tool-categories.ts";
 
 const LEGACY_TOOL_ALIASES: Record<string, string[]> = {

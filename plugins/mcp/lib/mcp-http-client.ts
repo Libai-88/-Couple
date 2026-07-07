@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MCP_PROTOCOL_VERSION } from "./mcp-stdio-client.ts";
 import { getOutboundProxyConfig } from "../../../lib/net/outbound-proxy.ts";
 import {

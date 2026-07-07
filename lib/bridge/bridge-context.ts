@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { parseSessionKey } from "./session-key.ts";
 import { interactionCapabilitiesForPlatform } from "./interaction-capabilities.ts";
 

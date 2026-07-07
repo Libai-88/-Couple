@@ -24,7 +24,7 @@ const MINIMAX_IMAGE_PROPERTIES = {
   prompt_optimizer: booleanParam(false),
 };
 
-function minimaxImageModel(id, displayName) {
+function minimaxImageModel(id: string, displayName: string) {
   return {
     id,
     displayName,

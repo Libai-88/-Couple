@@ -24,7 +24,7 @@ export class HttpRouteError extends Error {
   }
 }
 
-export function jsonRouteError(c, input: HttpRouteError | RouteErrorOptions) {
+export function jsonRouteError(c: { json: (body: unknown, status?: number) => unknown }, input: HttpRouteError | RouteErrorOptions) {
   const err = toHttpRouteError(input);
   return c.json({
     error: {

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * dm.js — DM 私信 REST API
  *

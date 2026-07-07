@@ -25,18 +25,18 @@ const UNSUPPORTED_FIELDS = [
   "temperature",
 ];
 
-function lower(value) {
+function lower(value: unknown) {
   return typeof value === "string" ? value.trim().toLowerCase() : "";
 }
 
-export function matches(model) {
+export function matches(model: unknown) {
   if (!model || typeof model !== "object") return false;
-  if (lower(model.api) !== CODEX_RESPONSES_API) return false;
-  const provider = lower(model.provider);
+  if (lower((model as Record<string, unknown>).api) !== CODEX_RESPONSES_API) return false;
+  const provider = lower((model as Record<string, unknown>).provider);
   return provider === "" || CODEX_PROVIDER_IDS.has(provider);
 }
 
-export function apply(payload) {
+export function apply(payload: unknown) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return payload;
   let changed = false;
   for (const field of UNSUPPORTED_FIELDS) {
@@ -47,7 +47,7 @@ export function apply(payload) {
   }
   if (!changed) return payload;
 
-  const next = { ...payload };
+  const next: Record<string, unknown> = { ...(payload as Record<string, unknown>) };
   for (const field of UNSUPPORTED_FIELDS) {
     delete next[field];
   }

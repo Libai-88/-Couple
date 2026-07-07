@@ -5,16 +5,16 @@ import { createReadStream } from "node:fs";
  * 从文件头读取图片宽高（不完整解码）。
  * 支持 PNG 和 JPEG。视频文件返回 null。
  */
-export async function readImageSize(filePath) {
+export async function readImageSize(filePath: string) {
   if (filePath.endsWith(".mp4") || filePath.endsWith(".mov")) return null;
 
-  const chunks = [];
+  const chunks: Buffer[] = [];
   let totalLen = 0;
   const NEEDED = 32 * 1024;
 
   return new Promise((resolve) => {
     const stream = createReadStream(filePath, { start: 0, end: NEEDED - 1 });
-    stream.on("data", (chunk) => { chunks.push(chunk); totalLen += chunk.length; });
+    stream.on("data", (chunk: Buffer) => { chunks.push(chunk); totalLen += chunk.length; });
     stream.on("end", () => {
       const buf = Buffer.concat(chunks, totalLen);
       resolve(parseSize(buf));
@@ -23,7 +23,7 @@ export async function readImageSize(filePath) {
   });
 }
 
-function parseSize(buf) {
+function parseSize(buf: Buffer) {
   if (buf.length < 8) return null;
 
   // PNG: bytes 0-7 = signature, IHDR at byte 16: width(4) + height(4)

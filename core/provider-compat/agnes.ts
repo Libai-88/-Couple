@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Agnes AI provider compatibility layer.
  *

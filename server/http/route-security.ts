@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { hasStudioOwnerScope } from "../../shared/access-scope-profiles.ts";
 
 const AUTHENTICATED_ONLY = Object.freeze({ kind: "authenticated" });

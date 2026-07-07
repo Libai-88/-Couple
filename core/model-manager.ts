@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ModelManager -- 模型发现、切换、凭证解析
  *

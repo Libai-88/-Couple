@@ -51,7 +51,7 @@ async function readTextFile(filePath: string) {
 }
 
 function readPinned(agentBaseDir: string) {
-  return readPinnedMemoryItems(agentBaseDir).map(item => item.content);
+  return readPinnedMemoryItems(agentBaseDir).map((item: { content: string }) => item.content);
 }
 
 function isExperienceEnabled(engine: any, id: string, config: Record<string, any>) {

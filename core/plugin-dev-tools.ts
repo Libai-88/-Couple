@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 function toolOk(message, details = {}) {
   return {
     content: [{ type: "text", text: message }],

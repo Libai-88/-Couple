@@ -3,15 +3,16 @@ import { migrateLegacySessions } from "./legacy-migration.ts";
 
 export const LEGACY_SESSION_MANIFEST_MIGRATION_KEY = "legacy-session-manifest-scan-v1";
 
-function sanitizeTimestamp(value) {
+function sanitizeTimestamp(value: unknown) {
   return String(value).replace(/:/g, "-").replace(/\./g, "-");
 }
 
-function serializeError(error) {
+function serializeError(error: unknown) {
+  const err = error as { name?: string; message?: string; code?: string };
   return {
-    name: error?.name || "Error",
-    message: error?.message || String(error),
-    ...(error?.code ? { code: error.code } : {}),
+    name: err?.name || "Error",
+    message: err?.message || String(error),
+    ...(err?.code ? { code: err.code } : {}),
   };
 }
 

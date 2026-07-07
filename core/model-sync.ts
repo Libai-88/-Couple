@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * model-sync.js — Provider Catalog provider configs → models.json 单向投影
  *

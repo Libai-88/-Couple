@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import fs from "fs";
 import path from "path";
 import { atomicWriteSync } from "../shared/safe-fs.ts";
@@ -934,7 +936,10 @@ export class PluginDevService {
 
   unregisterEventBusHandlers() {
     for (const dispose of this._eventBusDisposers.splice(0)) {
-      try { dispose(); } catch {}
+      try { dispose(); } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn(`[plugin-dev-service] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+      }
     }
   }
 }

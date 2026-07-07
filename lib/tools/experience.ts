@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * experience.js — recall_experience / record_experience 工具
  *

@@ -158,7 +158,7 @@ export function migrateToProvidersYaml(hanakoHome: string, agentsDir: string, lo
       if (!provider) {
         for (const [pName, pConf] of Object.entries(providers) as [string, any][]) {
           if (Array.isArray(pConf.models) && pConf.models.some(
-            m => (typeof m === "object" ? m.id : m) === modelId
+            (m: string | { id: string }) => (typeof m === "object" ? m.id : m) === modelId
           )) {
             provider = pName;
             break;
@@ -280,7 +280,7 @@ function _addModelToProvider(providers: Record<string, any>, providerName: strin
     providers[providerName].models = [];
   }
   const exists = providers[providerName].models.some(
-    m => (typeof m === "object" ? m.id : m) === modelId,
+    (m: string | { id: string }) => (typeof m === "object" ? m.id : m) === modelId,
   );
   if (!exists) {
     providers[providerName].models.push(modelId);

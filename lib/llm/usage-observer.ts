@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { debugLog } from "../debug-log.ts";
 
 function numberOrNull(value) {

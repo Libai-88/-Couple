@@ -18,7 +18,7 @@ export function headersWithoutMcpProtocolVersion( headers: any = {}) {
   return result;
 }
 
-function headerValue(headers, name) {
+function headerValue(headers: Record<string, unknown>, name: string) {
   const lower = name.toLowerCase();
   const found = Object.entries(headers || {}).find(([key, value]) => (
     typeof key === "string" &&
@@ -29,6 +29,6 @@ function headerValue(headers, name) {
   return (found?.[1] as string)?.trim() || "";
 }
 
-function stringOrEmpty(value) {
+function stringOrEmpty(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }

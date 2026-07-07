@@ -6,7 +6,7 @@ export function resolveCliHanaHome(env = process.env) {
   return resolveHomePath(env.HANA_HOME || path.join(os.homedir(), ".couple"));
 }
 
-function resolveHomePath(value) {
+function resolveHomePath(value: string) {
   const raw = String(value || "").trim();
   if (!raw) return path.join(os.homedir(), ".couple");
   if (raw === "~") return os.homedir();
@@ -87,7 +87,7 @@ export function resolveConnection({ url, token, hanaHome }: { url?: string; toke
   };
 }
 
-export function isProcessAlive(pid) {
+export function isProcessAlive(pid: number) {
   try {
     process.kill(pid, 0);
     return true;
@@ -96,6 +96,6 @@ export function isProcessAlive(pid) {
   }
 }
 
-function stripTrailingSlash(value) {
+function stripTrailingSlash(value: string) {
   return String(value || "").replace(/\/+$/, "");
 }

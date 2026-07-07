@@ -208,13 +208,13 @@ export class ResourceIO {
       throw err;
     }
     const capabilities = provider.capabilities?.(ref) || {};
-    if (capabilities[capability] === false || typeof provider[capability] !== "function") {
+    if (capabilities[capability] === false || typeof (provider as any)[capability] !== "function") {
       const err = capabilityDenied(String(capability), providerId);
       this.auditDenied(capability, providerId, context, err);
       throw err;
     }
     try {
-      return await (provider[capability] as (...args: unknown[]) => Promise<T>)(...args);
+      return await ((provider as any)[capability] as (...args: unknown[]) => Promise<T>)(...args);
     } catch (err) {
       if (isDeniedProviderError(err)) {
         this.auditDenied(capability, providerId, context, err);

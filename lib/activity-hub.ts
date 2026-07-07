@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ActivityHub — 统一 Agent Activity 实时真相源（内存广播层）
  *

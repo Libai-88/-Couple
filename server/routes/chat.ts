@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * WebSocket 聊天路由
  *

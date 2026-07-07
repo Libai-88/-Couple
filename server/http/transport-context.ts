@@ -2,7 +2,7 @@ export function inferHttpConnectionKind({
   hostHeader,
   remoteAddress,
   networkMode = "loopback",
-}: { hostHeader?: string; remoteAddress?: string; networkMode?: string } = {}) {
+}: { hostHeader?: string; remoteAddress?: string; networkMode?: string } = {}): { connectionKind: string | null; reason: string | null } {
   const mode = typeof networkMode === "string" && networkMode.trim()
     ? networkMode.trim()
     : "loopback";
@@ -25,7 +25,7 @@ export function inferHttpConnectionKind({
   return { connectionKind: null, reason: "invalid_network_mode" };
 }
 
-export function isLoopbackHost(hostHeader) {
+export function isLoopbackHost(hostHeader: string) {
   const host = normalizeHostHeader(hostHeader);
   if (!host) return false;
   if (host === "localhost" || host === "::1" || host === "[::1]") return true;
@@ -33,7 +33,7 @@ export function isLoopbackHost(hostHeader) {
   return false;
 }
 
-function normalizeHostHeader(hostHeader) {
+function normalizeHostHeader(hostHeader: string) {
   const raw = String(hostHeader || "").trim().toLowerCase();
   if (!raw) return "";
   if (raw.startsWith("[")) {
@@ -47,7 +47,7 @@ function normalizeHostHeader(hostHeader) {
   return raw;
 }
 
-function isLoopbackAddress(remoteAddress) {
+function isLoopbackAddress(remoteAddress: string) {
   const value = String(remoteAddress || "").trim().toLowerCase();
   if (!value) return false;
   if (value === "localhost" || value === "::1" || value === "[::1]") return true;

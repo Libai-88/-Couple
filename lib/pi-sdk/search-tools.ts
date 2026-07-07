@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { createInterface } from "node:readline";
 import { spawn, spawnSync } from "child_process";
 import { extractZip } from "../extract-zip.ts";

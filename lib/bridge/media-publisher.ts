@@ -16,7 +16,7 @@ export class MediaPublisher {
 
   constructor({
     baseUrl = "",
-    allowedRoots = [],
+    allowedRoots = [] as string[],
     ttlMs = DEFAULT_TTL_MS,
     maxDownloads = DEFAULT_MAX_DOWNLOADS,
     now = () => Date.now(),
@@ -137,7 +137,7 @@ function normalizeBaseUrl(baseUrl: any) {
 }
 
 function normalizeAllowedRoots(roots: any) {
-  return [...new Set((roots || []).filter(Boolean).map((root) => {
+  return [...new Set((roots || []).filter(Boolean).map((root: string) => {
     const resolved = path.resolve(root);
     const realRoot = (() => {
       try { return fs.realpathSync(resolved); }

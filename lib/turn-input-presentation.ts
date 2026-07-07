@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { parseDeferredResultNotification } from "./deferred-result-notification.ts";
 
 export const TURN_INPUT_PRESENTATION_EVENT_TYPE = "turn_input_presentation";

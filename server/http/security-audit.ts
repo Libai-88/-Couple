@@ -1,7 +1,7 @@
 import { appendSecurityAuditEvent } from "../../core/security-audit-log.ts";
 import { readAuthPrincipal } from "./capability-guard.ts";
 
-export function recordSecurityAuditEvent(c, engine, {
+export function recordSecurityAuditEvent(c: any, engine: any, {
   action,
   target = null,
   result = "success",

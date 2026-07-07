@@ -23,6 +23,13 @@ export function createReceiptCapabilities({
   refreshIntervalMs = 0,
   cancellable = false,
   source = "",
+}: {
+  platform: string;
+  mode: string;
+  scopes?: string[];
+  refreshIntervalMs?: number;
+  cancellable?: boolean;
+  source?: string;
 }) {
   if (!platform) throw new Error("receipt capability requires platform");
   if (!RECEIPT_MODES.has(mode)) throw new Error(`unsupported receipt mode: ${mode}`);

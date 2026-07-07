@@ -30,7 +30,7 @@ export class IpcTransport {
     if (this._boundListener) {
       process.off("message", this._boundListener);
     }
-    this._boundListener = (msg) => handler(msg);
+    this._boundListener = (msg: any) => handler(msg);
     process.on("message", this._boundListener);
   }
 }
@@ -59,7 +59,7 @@ export class WsTransport {
     }
     this._ws = ws;
     if (this._handler && ws) {
-      this._boundListener = (data) => {
+      this._boundListener = (data: any) => {
         let msg;
         try { msg = JSON.parse(data); } catch { return; }
         this._handler(msg);

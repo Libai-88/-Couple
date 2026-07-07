@@ -3,7 +3,7 @@ import path from "path";
 
 const USER_EDIT_CHECKPOINT_REASONS = new Set(["edit-start", "autosave-interval"]);
 
-export function createCheckpointsRoute(engine) {
+export function createCheckpointsRoute(engine: any) {
   const route = new Hono();
 
   route.get("/checkpoints", async (c) => {

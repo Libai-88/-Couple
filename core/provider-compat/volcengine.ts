@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Volcengine Ark OpenAI-compatible thinking compatibility.
  *

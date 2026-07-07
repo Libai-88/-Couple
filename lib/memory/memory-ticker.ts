@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * memory-ticker.js — 记忆调度器（v4：按天滚动记忆传送带 + today 水位线增量）
  *

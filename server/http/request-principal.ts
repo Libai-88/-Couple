@@ -41,7 +41,7 @@ interface HttpAuthService {
   }) => DetailedAuthResult;
 }
 
-export function resolveHttpRequestPrincipal(c, engine, {
+export function resolveHttpRequestPrincipal(c: any, engine: any, {
   serverAuthService,
   wsTicketService = null,
   connectionKind,

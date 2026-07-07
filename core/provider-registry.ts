@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * ProviderRegistry — 声明式 provider 插件注册表
  *

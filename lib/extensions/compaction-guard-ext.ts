@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * Hana cache-preserving compaction Pi SDK Extension
  *

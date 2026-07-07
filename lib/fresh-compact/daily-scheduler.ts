@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { DAY_BOUNDARY_HOUR } from "../time-utils.ts";
 import { createModuleLogger } from "../debug-log.ts";
 

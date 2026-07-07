@@ -17,7 +17,7 @@ export function inferSkillSourceOwner( skill: any = {}) {
   return "user";
 }
 
-export function isEditableSkillSourceOwner(owner) {
+export function isEditableSkillSourceOwner(owner: string) {
   return EDITABLE_SOURCE_OWNERS.has(owner);
 }
 

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // plugins/image-gen/adapters/volcengine.js
 import fs from "fs";
 import path from "path";

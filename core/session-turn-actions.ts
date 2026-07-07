@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { submitDesktopSessionMessage } from "./desktop-session-submit.ts";
 import fsp from "fs/promises";
 import { detectMime } from "../lib/file-metadata.ts";

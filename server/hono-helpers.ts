@@ -3,7 +3,7 @@
  */
 
 /** Safe JSON body parse — returns fallback on empty body or non-JSON */
-export async function safeJson(c, fallback = {}) {
+export async function safeJson(c: { req: { text: () => Promise<string> } }, fallback: unknown = {}) {
   try {
     const text = await c.req.text();
     return text ? JSON.parse(text) : fallback;

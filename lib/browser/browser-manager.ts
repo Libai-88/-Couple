@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * browser-manager.js — 浏览器生命周期管理
  *

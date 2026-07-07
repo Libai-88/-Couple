@@ -30,7 +30,7 @@ export function createPinnedMemoryTools(agentDir: string) {
     parameters: Type.Object({
       content: Type.String({ description: "Content to remember" }),
     }),
-    execute: async (_toolCallId, params) => {
+    execute: async (_toolCallId: string, params: { content: string }) => {
       const { cleaned, detected } = scrubPII(params.content);
       if (detected.length > 0) {
         log.warn(`PII detected (${detected.join(", ")}), redacted before storage`);
@@ -60,7 +60,7 @@ export function createPinnedMemoryTools(agentDir: string) {
       id: Type.Optional(Type.String({ description: "Pinned memory entity id returned by pin_memory" })),
       keyword: Type.Optional(Type.String({ description: "Keyword of the memory to remove, matched fuzzily" })),
     }),
-    execute: async (_toolCallId, params) => {
+    execute: async (_toolCallId: string, params: { id?: string; keyword?: string }) => {
       const existing = readPinnedMemoryItems(agentDir);
       if (existing.length === 0) {
         return {

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "strict": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": false,
     "strictPropertyInitialization": false,
     "useUnknownInCatchVariables": false,

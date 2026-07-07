@@ -58,7 +58,7 @@ function normalizeIdempotencyKey(value: any) {
 function normalizeChannels(value: any) {
   const hasExplicitChannels = Array.isArray(value) || (typeof value === "string" && value);
   const raw = Array.isArray(value) ? value : hasExplicitChannels ? [value] : [CHANNEL_DESKTOP];
-  const normalized = [];
+  const normalized: string[] = [];
   const invalidChannels = [];
   for (const item of raw) {
     const channel = typeof item === "string" ? item.trim() : "";

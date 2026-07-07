@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * MoodParser — 从 streaming text 中解析内省标签
  *

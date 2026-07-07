@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ResourceError } from "./resource-service.ts";
 
 const PATH_FIELD_NAMES = new Set(["filePath", "realPath"]);

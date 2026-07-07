@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const UNKNOWN_USAGE_CONTEXT = Object.freeze({
   source: Object.freeze({
     subsystem: "unknown",

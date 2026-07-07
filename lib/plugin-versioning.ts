@@ -44,7 +44,7 @@ export function comparePluginVersions(a: any, b: any) {
   if (!left && !right) return String(a || "").localeCompare(String(b || ""), undefined, { numeric: true });
   if (!left) return -1;
   if (!right) return 1;
-  for (const key of ["major", "minor", "patch"]) {
+  for (const key of ["major", "minor", "patch"] as const) {
     if (left[key] !== right[key]) return left[key] > right[key] ? 1 : -1;
   }
   return comparePrerelease(left.prerelease, right.prerelease);

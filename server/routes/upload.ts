@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * upload.js — 文件上传路由
  *

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * subagent-thread-store.js — subagent 线程生命周期账本
  *

@@ -4,7 +4,7 @@ export const COVER_STYLE_GUIDE_VERSION = "2026-05-26";
 
 export const COVER_STYLE_GUIDE = t("plugin.beautify.coverStyleGuide");
 
-export function themeToneGuidance(themeTone) {
+export function themeToneGuidance(themeTone: string) {
   return themeTone === "dark"
     ? t("plugin.beautify.themeTone.dark")
     : t("plugin.beautify.themeTone.light");

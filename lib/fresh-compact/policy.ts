@@ -5,9 +5,9 @@ export function getFreshCompactDate(now = new Date()) {
   return getLogicalDay(now).logicalDate;
 }
 
-function stableStringify(value: any) {
+function stableStringify(value: any): string {
   if (value === null || typeof value !== "object") return JSON.stringify(value);
-  if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
+  if (Array.isArray(value)) return `[${value.map((v: any) => stableStringify(v)).join(",")}]`;
   return `{${Object.keys(value).sort().map((key) =>
     `${JSON.stringify(key)}:${stableStringify(value[key])}`
   ).join(",")}}`;

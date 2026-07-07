@@ -9,15 +9,15 @@ import {
 } from "./cache-strategy-contract.ts";
 import { normalizeRequestThinkingLevel } from "../../core/session-thinking-level.ts";
 
-function extractText(response) {
+function extractText(response: any) {
   return response?.content
-    ?.filter((block) => block?.type === "text" && typeof block.text === "string")
-    ?.map((block) => block.text)
+    ?.filter((block: any) => block?.type === "text" && typeof block.text === "string")
+    ?.map((block: any) => block.text)
     ?.join("\n")
     ?.trim() || "";
 }
 
-function isErrorResponse(response) {
+function isErrorResponse(response: any) {
   return response?.stopReason === "error" || response?.stopReason === "aborted";
 }
 

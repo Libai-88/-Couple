@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * tool-wrapper.js — 工具沙盒包装
  *

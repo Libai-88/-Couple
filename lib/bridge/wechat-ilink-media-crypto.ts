@@ -10,7 +10,7 @@ export function createIlinkMediaAesKey() {
   };
 }
 
-export function normalizeIlinkMediaAesKeyHex(aesKeyHex) {
+export function normalizeIlinkMediaAesKeyHex(aesKeyHex: string) {
   if (typeof aesKeyHex !== "string") {
     throw new Error("WeChat iLink media aes key must be a hex string");
   }
@@ -21,11 +21,11 @@ export function normalizeIlinkMediaAesKeyHex(aesKeyHex) {
   return normalized;
 }
 
-export function encodeIlinkMediaAesKey(aesKeyHex) {
+export function encodeIlinkMediaAesKey(aesKeyHex: string) {
   return Buffer.from(normalizeIlinkMediaAesKeyHex(aesKeyHex), "ascii").toString("base64");
 }
 
-export function decodeIlinkMediaAesKey(aesKeyBase64) {
+export function decodeIlinkMediaAesKey(aesKeyBase64: string) {
   const decoded = Buffer.from(aesKeyBase64, "base64");
   if (decoded.length === 16) return Buffer.from(decoded);
   if (decoded.length === 32) {

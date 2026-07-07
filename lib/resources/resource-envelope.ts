@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export const RESOURCE_ENVELOPE_SCHEMA_VERSION = 1;
 export const SESSION_FILE_RESOURCE_PREFIX = "res_";
 

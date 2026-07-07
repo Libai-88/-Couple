@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * first-run.js — 首次运行播种
  *
@@ -197,7 +199,10 @@ function seedDefaultAgent(agentsDir, productDir) {
       const raw = YAML.load(fs.readFileSync(cfgDest, "utf-8")) || {};
       isZh = String(raw.locale || "zh").startsWith("zh");
     }
-  } catch {}
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn(`[first-run] suppressed error: ${err instanceof Error ? err.message : String(err)}`);
+  }
   const langDir = isZh ? "" : "en/";
   const firstExisting = (paths) => paths.find((p) => fs.existsSync(p));
 

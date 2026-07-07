@@ -11,7 +11,7 @@ import { createModuleLogger } from "../../lib/debug-log.ts";
 
 const log = createModuleLogger("commands");
 
-export function createCommandsRoute(engine) {
+export function createCommandsRoute(engine: any) {
   const route = new Hono();
 
   /** GET /commands — 列出所有可见命令，供前端 slash 菜单显示 */
@@ -19,7 +19,7 @@ export function createCommandsRoute(engine) {
     try {
       const registry = engine.slashRegistry;
       if (!registry) return c.json({ error: "slash system not ready" }, 503);
-      const defs = registry.list().map((d) => ({
+      const defs = registry.list().map((d: any) => ({
         name: d.name,
         aliases: d.aliases || [],
         description: d.description || "",

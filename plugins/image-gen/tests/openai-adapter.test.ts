@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { openaiImageAdapter } from "../adapters/openai.ts";
 
-const tmpDirs = [];
+const tmpDirs: string[] = [];
 
 function makeTmpDir() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openai-adapter-test-"));

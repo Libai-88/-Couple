@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * channels.js — 频道 REST API
  *

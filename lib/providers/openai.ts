@@ -34,7 +34,7 @@ const DALL_E_3_PROPERTIES = {
 const GPT_IMAGE_DEFAULTS = { ratio: "3:2", resolution: "1K" };
 const DALL_E_3_DEFAULTS = { ratio: "16:9", size: "1792x1024" };
 
-function gptImageModel(id, displayName, aliases) {
+function gptImageModel(id: string, displayName: string, aliases: string[] = []) {
   return {
     id,
     displayName,

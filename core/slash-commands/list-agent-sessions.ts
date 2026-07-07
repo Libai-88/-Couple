@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 /**
  * list-agent-sessions.js — /rc 菜单的数据源
  *

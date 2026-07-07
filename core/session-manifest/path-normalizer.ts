@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-export function normalizeSessionLocatorPath(sessionPath) {
+export function normalizeSessionLocatorPath(sessionPath: string) {
   if (typeof sessionPath !== "string" || sessionPath.trim() === "") {
     throw new Error("session locator path must be a non-empty string");
   }
@@ -9,7 +9,7 @@ export function normalizeSessionLocatorPath(sessionPath) {
   return path.resolve(sessionPath);
 }
 
-export function canonicalSessionLocatorPath(sessionPath) {
+export function canonicalSessionLocatorPath(sessionPath: string) {
   if (typeof sessionPath !== "string" || sessionPath.trim() === "") {
     throw new Error("session locator path must be a non-empty string");
   }
@@ -26,12 +26,12 @@ export function canonicalSessionLocatorPath(sessionPath) {
   }
 }
 
-export function sessionLocatorKey(sessionPath) {
+export function sessionLocatorKey(sessionPath: string) {
   const canonical = canonicalSessionLocatorPath(sessionPath);
   return process.platform === "win32" ? canonical.toLocaleLowerCase("en-US") : canonical;
 }
 
-function normalizeMissingPathFromExistingParent(resolvedPath) {
+function normalizeMissingPathFromExistingParent(resolvedPath: string) {
   const missingParts = [];
   let cursor = resolvedPath;
 
