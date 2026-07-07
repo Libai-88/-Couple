@@ -522,15 +522,15 @@
   "yuan": {
     "types": {
       "hanako": {
-        "label": "バランス型アシスタント",
+        "label": "Minima",
         "avatar": "Hanako.png"
       },
       "butter": {
-        "label": "より感情豊か",
+        "label": "Proma",
         "avatar": "Butter.png"
       },
       "ming": {
-        "label": "より堅実",
+        "label": "Maxma",
         "avatar": "Ming.png"
       },
       "kong": {
