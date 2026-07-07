@@ -81,6 +81,12 @@
       "backgroundColor": "#FDF6EC",
       "i18nName": "settings.appearance.coral",
       "i18nMode": "settings.appearance.coralMode"
+    },
+    "pastel-dream": {
+      "cssPath": "themes/pastel-dream.css",
+      "backgroundColor": "#FCFBE6",
+      "i18nName": "settings.appearance.pastelDream",
+      "i18nMode": "settings.appearance.pastelDreamMode"
     }
   }
 }

@@ -1,0 +1,71 @@
+/*
+ * Couple Theme: Pastel Dream（柔梦）
+ * 四色 pastel 配色：奶白底 + 柔粉强调 + 暖黄卡片 + 淡蓝点缀
+ * #FDC9C6 / #FFEEBB / #FCFBE6 / #EAF5F6
+ */
+
+[data-theme="pastel-dream"] {
+    /* 背景（奶白） */
+    --bg:           #FCFBE6;
+    --bg-texture:   none;
+    --bg-card:      #FFEEBB;
+    --bg-glass:     rgba(252, 251, 230, 0.92);
+
+    /* 主色调（柔粉） */
+    --accent:       #FDC9C6;
+    --accent-hover: #F0B0AD;
+    --accent-light: rgba(253, 201, 198, 0.18);
+    --link:         #E8837C;
+    --link-hover:   #D06E68;
+    --link-rgb:     232, 131, 124;
+
+    /* 文字（暖深灰，不用纯黑） */
+    --text:         #4A4540;
+    --text-light:   #7A7470;
+    --text-muted:   #A8A09A;
+
+    /* 边框与阴影（暖棕调） */
+    --border:       rgba(200, 180, 160, 0.25);
+    --shadow:       rgba(74, 69, 64, 0.06);
+
+    /* 状态色 */
+    --green:        #A8D5A2;
+    --green-rgb:    168, 213, 162;
+    --coral:        #FDC9C6;
+
+    /* 侧边栏（暖黄） */
+    --sidebar-bg:   #FFF5D6;
+
+    /* 便笺（淡蓝） */
+    --jian-note-bg:     #EAF5F6;
+    --jian-note-border: rgba(180, 210, 215, 0.30);
+
+    /* 聊天专用 */
+    --hana-text:    #4A4540;
+    --mood-bg:      rgba(253, 201, 198, 0.10);
+    --mood-text:    #D4837E;
+    --mood-border:  rgba(253, 201, 198, 0.25);
+    --tool-bg:      rgba(234, 245, 246, 0.50);
+    --tool-text:    #7A7470;
+    --user-bg:      rgba(255, 238, 187, 0.40);
+    --drop-overlay-bg: rgba(252, 251, 230, 0.88);
+    --attach-bg:    rgba(0, 0, 0, 0.03);
+
+    /* 辅助色 */
+    --accent-rgb:   253, 201, 198;
+    --coral-rgb:    253, 201, 198;
+    --danger:       #D4837E;
+    --danger-rgb:   212, 131, 126;
+    --overlay-subtle: rgba(74, 69, 64, 0.02);
+    --overlay-light:  rgba(74, 69, 64, 0.04);
+    --overlay-medium: rgba(74, 69, 64, 0.06);
+    --overlay-strong: rgba(74, 69, 64, 0.10);
+
+    /* 圆角（柔和大圆角，匹配 pastel 风格） */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    /* Select 下拉箭头 */
+    --select-arrow: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23A8A09A' fill='none' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
